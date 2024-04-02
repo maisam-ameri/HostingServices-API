@@ -14,5 +14,13 @@
                 });
             });
         }
+
+        public static void ConfigureIISIntegration(IServiceCollection services)
+        {
+            services.Configure<IISOptions>(opt =>
+            {
+
+            });
+        }
     }
 }
