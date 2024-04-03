@@ -14,7 +14,8 @@ namespace Host_Service.ContextFactory
                 .Build();
 
             var builder = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseSqlServer(configuration.GetConnectionString("SqlConnection"));
+                .UseSqlServer(configuration.GetConnectionString("SqlConnection")
+                , b => b.MigrationsAssembly("Host_Service"));
 
             return new RepositoryContext(builder.Options);
         }
