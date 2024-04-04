@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Repository.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -14,6 +15,13 @@ namespace Repository
     {
         public RepositoryContext(DbContextOptions options) : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new HostConfiguration());
+            modelBuilder.ApplyConfiguration(new PlanConfiguration());
+            modelBuilder.ApplyConfiguration(new FeatureConfiguration());
         }
 
         public DbSet<Host>? Hosts { get; set; }
