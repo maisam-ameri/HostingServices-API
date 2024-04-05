@@ -17,31 +17,31 @@ namespace Repository.Configuration
 
                 new Plan
                 {
-                    Id = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
+                    Id = new Guid("2db809a9-0e14-4cb1-a641-5582d3a78d41"),
                     Name = "Web host",
                     Price = 235,
-                    HostId = new Guid("c9d4c053-49b6-410c-b5de-2d54a9991870"),
+                    HostId = new Guid("ab34857f-6107-4411-b34a-f9d8951957f9"),
                 },
                 new Plan
                 {
-                    Id = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
+                    Id = new Guid("f5ea2b27-ddc6-465a-86db-66c2673d6bd3"),
                     Name = "Business host",
                     Price = 400,
-                    HostId = new Guid("c9d4c053-49b6-410c-b5de-2d54a9991870"),
+                    HostId = new Guid("ab34857f-6107-4411-b34a-f9d8951957f9"),
                 },
                 new Plan
                 {
-                    Id = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811"),
+                    Id = new Guid("6f588d66-c351-42a5-969b-3f6354269c2e"),
                     Name = "Reseller host",
                     Price = 3000,
-                    HostId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                    HostId = new Guid("4d3070b4-a516-4b1c-b641-973b53353f7c"),
                 },
                 new Plan
                 {
-                    Id = new Guid("86dba8c0-d178-41e7-938c-ed49778fb53a"),
+                    Id = new Guid("94c2e095-2a52-4102-9e39-c225c39afc9d"),
                     Name = "VPS host",
                     Price = 7500,
-                    HostId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                    HostId = new Guid("4d3070b4-a516-4b1c-b641-973b53353f7c"),
                 }
                 );
         }

@@ -17,14 +17,14 @@ namespace Repository.Configuration
                 
                 new Host
                 {
-                    Id = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                    Id = new Guid("ab34857f-6107-4411-b34a-f9d8951957f9"),
                     Name = "Win",
                     Description = "Win host is a host for deploy .net core sites",
                     Details = "CPanel control panel,Unlimited DB,High speed,Backup automaticlly",
                 },
                 new Host
                 {
-                    Id = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                    Id = new Guid("4d3070b4-a516-4b1c-b641-973b53353f7c"),
                     Name = "Linux",
                     Description = "Linux host is a host for deploy linux  sites",
                     Details = "CPanel control panel,Web application firewall(WAF),Use uptodate hardwares",

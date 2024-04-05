@@ -49,6 +49,44 @@ namespace Host_Service.Migrations
                     b.HasIndex("PlanId");
 
                     b.ToTable("Features");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3d490a90-94ce-4d15-9494-5248280c2ce3"),
+                            DbCount = 1,
+                            MySql = true,
+                            PlanId = new Guid("2db809a9-0e14-4cb1-a641-5582d3a78d41"),
+                            Storage = 200,
+                            Traffic = 100
+                        },
+                        new
+                        {
+                            Id = new Guid("3d490a90-94ce-4d15-9494-5248280c2cd4"),
+                            DbCount = 1,
+                            MySql = false,
+                            PlanId = new Guid("f5ea2b27-ddc6-465a-86db-66c2673d6bd3"),
+                            Storage = 300,
+                            Traffic = 400
+                        },
+                        new
+                        {
+                            Id = new Guid("3d490a90-94ce-4d15-9494-5248280c2ab2"),
+                            DbCount = 2,
+                            MySql = true,
+                            PlanId = new Guid("6f588d66-c351-42a5-969b-3f6354269c2e"),
+                            Storage = 500,
+                            Traffic = 400
+                        },
+                        new
+                        {
+                            Id = new Guid("3d490a90-94ce-4d15-9494-5248280c2ac1"),
+                            DbCount = 2,
+                            MySql = true,
+                            PlanId = new Guid("94c2e095-2a52-4102-9e39-c225c39afc9d"),
+                            Storage = 600,
+                            Traffic = 500
+                        });
                 });
 
             modelBuilder.Entity("Entities.Host", b =>
@@ -76,6 +114,22 @@ namespace Host_Service.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hosts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ab34857f-6107-4411-b34a-f9d8951957f9"),
+                            Description = "Win host is a host for deploy .net core sites",
+                            Details = "CPanel control panel,Unlimited DB,High speed,Backup automaticlly",
+                            Name = "Win"
+                        },
+                        new
+                        {
+                            Id = new Guid("4d3070b4-a516-4b1c-b641-973b53353f7c"),
+                            Description = "Linux host is a host for deploy linux  sites",
+                            Details = "CPanel control panel,Web application firewall(WAF),Use uptodate hardwares",
+                            Name = "Linux"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Plan", b =>
@@ -101,6 +155,36 @@ namespace Host_Service.Migrations
                     b.HasIndex("HostId");
 
                     b.ToTable("Plans");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2db809a9-0e14-4cb1-a641-5582d3a78d41"),
+                            HostId = new Guid("ab34857f-6107-4411-b34a-f9d8951957f9"),
+                            Name = "Web host",
+                            Price = 235.0
+                        },
+                        new
+                        {
+                            Id = new Guid("f5ea2b27-ddc6-465a-86db-66c2673d6bd3"),
+                            HostId = new Guid("ab34857f-6107-4411-b34a-f9d8951957f9"),
+                            Name = "Business host",
+                            Price = 400.0
+                        },
+                        new
+                        {
+                            Id = new Guid("6f588d66-c351-42a5-969b-3f6354269c2e"),
+                            HostId = new Guid("4d3070b4-a516-4b1c-b641-973b53353f7c"),
+                            Name = "Reseller host",
+                            Price = 3000.0
+                        },
+                        new
+                        {
+                            Id = new Guid("94c2e095-2a52-4102-9e39-c225c39afc9d"),
+                            HostId = new Guid("4d3070b4-a516-4b1c-b641-973b53353f7c"),
+                            Name = "VPS host",
+                            Price = 7500.0
+                        });
                 });
 
             modelBuilder.Entity("Entities.Feature", b =>

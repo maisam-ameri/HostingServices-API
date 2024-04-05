@@ -22,7 +22,7 @@ namespace Repository.Configuration
                     MySql = true,
                     Storage = 200,
                     Traffic = 100,
-                    PlanId = new Guid("80abbca8-664d-4b20-b5de-024705497d4a")
+                    PlanId = new Guid("2db809a9-0e14-4cb1-a641-5582d3a78d41")
                 },
                 new Feature
                 {
@@ -31,25 +31,25 @@ namespace Repository.Configuration
                     MySql = false,
                     Storage = 300,
                     Traffic = 400,
-                    PlanId = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a")
+                    PlanId = new Guid("f5ea2b27-ddc6-465a-86db-66c2673d6bd3")
                 },
                 new Feature
                 {
-                    Id = new Guid("3d490a90-94ce-4d15-9494-5248280c2ce3"),
+                    Id = new Guid("3d490a90-94ce-4d15-9494-5248280c2ab2"),
                     DbCount = 2,
                     MySql = true,
                     Storage = 500,
                     Traffic = 400,
-                    PlanId = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811")
+                    PlanId = new Guid("6f588d66-c351-42a5-969b-3f6354269c2e")
                 },
                 new Feature
                 {
-                    Id = new Guid("3d490a90-94ce-4d15-9494-5248280c2cd4"),
+                    Id = new Guid("3d490a90-94ce-4d15-9494-5248280c2ac1"),
                     DbCount = 2,
                     MySql = true,
                     Storage = 600,
                     Traffic = 500,
-                    PlanId = new Guid("86dba8c0-d178-41e7-938c-ed49778fb53a")
+                    PlanId = new Guid("94c2e095-2a52-4102-9e39-c225c39afc9d")
                 }
             );
         }
