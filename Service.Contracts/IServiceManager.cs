@@ -1,7 +1,7 @@
 ﻿
 namespace Service.Contracts
 {
-    public class IServiceManager
+    public interface IServiceManager
     {
         IHostService HostService { get; }
         IPlanService PlanService { get; }

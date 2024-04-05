@@ -4,7 +4,7 @@ using Service.Contracts;
 
 namespace Service
 {
-    public class HostService: IHostService
+    public sealed class HostService: IHostService
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
