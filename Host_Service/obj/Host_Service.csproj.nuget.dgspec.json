@@ -27,7 +27,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Work\\Projects\\Web\\Host_Service\\Entities\\Entities.csproj": {
+                "projectPath": "D:\\Work\\Projects\\Web\\Host_Service\\Entities\\Entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -418,7 +422,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Work\\Projects\\Web\\Host_Service\\Entities\\Entities.csproj": {
+                "projectPath": "D:\\Work\\Projects\\Web\\Host_Service\\Entities\\Entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

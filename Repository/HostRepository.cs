@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class HostRepository : RepositoryBase<Host>, IHostRepository
+    public sealed class HostRepository : RepositoryBase<Host>, IHostRepository
     {
         public HostRepository(RepositoryContext context) : base(context)
         {
         }
+
+        public IEnumerable<Host> GetAllHosts(bool trackChanges) =>
+            FindAll(trackChanges)
+            .OrderBy(x => x.Name)
+            .ToList();
     }
 }
