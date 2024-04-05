@@ -1,6 +1,9 @@
 ﻿using Contracts;
 using LoggerService;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Repository;
+using Service;
+using Service.Contracts;
 
 namespace Host_Service.Extensions
 {
@@ -35,6 +38,11 @@ namespace Host_Service.Extensions
         public static void ConfigureRepositoryManager(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryManager,RepositoryManager>();
+        }
+
+        public static void ConfigureServiceManager(this IServiceCollection services)
+        {
+            services.AddScoped<IServiceManager,ServiceManager>();
         }
     }
 }
