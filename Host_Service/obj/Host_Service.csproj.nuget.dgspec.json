@@ -280,6 +280,9 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+              "D:\\Work\\Projects\\Web\\Host_Service\\Contracts\\Contracts.csproj": {
+                "projectPath": "D:\\Work\\Projects\\Web\\Host_Service\\Contracts\\Contracts.csproj"
+              },
               "D:\\Work\\Projects\\Web\\Host_Service\\Entities\\Entities.csproj": {
                 "projectPath": "D:\\Work\\Projects\\Web\\Host_Service\\Entities\\Entities.csproj"
               }
