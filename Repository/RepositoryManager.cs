@@ -9,10 +9,10 @@ namespace Repository
 {
     public class RepositoryManager : IRepositoryManager
     {
-        private RepositoryContext _context;
-        private Lazy<IHostRepository> _hostRepository;
-        private Lazy<IPlanRepository> _planRepository;
-        private Lazy<IFeatureRepository> _featureRepository;
+        private readonly RepositoryContext _context;
+        private readonly Lazy<IHostRepository> _hostRepository;
+        private readonly Lazy<IPlanRepository> _planRepository;
+        private readonly Lazy<IFeatureRepository> _featureRepository;
         
         public IHostRepository Host => _hostRepository.Value;
         public IPlanRepository Plan => _planRepository.Value;
