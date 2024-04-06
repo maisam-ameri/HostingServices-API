@@ -27,5 +27,14 @@ namespace Service
 
             return hostsDto;
         }
+
+        public HostDto GetHost(Guid hostId, bool trackChanges)
+        {
+            var host = _repository.Host.GetHost(hostId, trackChanges);
+            
+            var hostDto = _mapper.Map<HostDto>(host);
+            return hostDto;
+
+        }
     }
 }
