@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 
 namespace Service
 {
@@ -15,12 +16,13 @@ namespace Service
             _logger = logger;
         }
 
-        public IEnumerable<Host> GetAllHosts(bool trackChanges)
+        public IEnumerable<HostDto> GetAllHosts(bool trackChanges)
         {
 
             try
             {
-                var hosts = _repository.Host.GetAllHosts(trackChanges);
+                var hosts = _repository.Host.GetAllHosts(trackChanges).Select(h => new HostDto(h.Id,h.Name,h.Description,h.Details)).ToList();
+
                 return hosts;
             }
             catch (Exception ex)

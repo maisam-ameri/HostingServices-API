@@ -1,10 +1,9 @@
-﻿
-using Entities;
+﻿using Shared.DataTransferObjects;
 
 namespace Service.Contracts
 {
     public interface IHostService
     {
-        IEnumerable<Host> GetAllHosts(bool trackChanges);
+        IEnumerable<HostDto> GetAllHosts(bool trackChanges);
     }
 }
