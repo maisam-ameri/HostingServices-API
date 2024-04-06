@@ -26,5 +26,12 @@ namespace Presentation.Controllers
             var plans = _service.PlanService.GetPlans(hostId,false);
             return Ok(plans);
         }
+
+        [HttpGet("{id:guid}")]
+        public IActionResult GetPlanForHost(Guid hostId, Guid id)
+        {
+            var plan = _service.PlanService.GetPlan(hostId,id,false);
+            return Ok(plan);
+        }
     }
 }
