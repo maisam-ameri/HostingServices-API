@@ -13,11 +13,18 @@ namespace Presentation.Controllers
     public class PlanController: ControllerBase
     {
 
-        private IPlanService _planService;
+        private IServiceManager _service;
 
-        public PlanController(IPlanService planService)
+        public PlanController(IServiceManager service)
         {
-            _planService = planService;
+            _service = service;
+        }
+
+        [HttpGet]
+        public IActionResult GetPlansForHost(Guid hostId)
+        {
+            var plans = _service.PlanService.GetPlans(hostId,false);
+            return Ok(plans);
         }
     }
 }
