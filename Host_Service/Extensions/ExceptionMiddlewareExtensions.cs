@@ -6,9 +6,9 @@ using System.Net;
 
 namespace Host_Service.Extensions
 {
-    public class ExceptionMiddlewareExtensions
+    public static class ExceptionMiddlewareExtensions
     {
-        public static void ConfigureExceptionHandler(IApplicationBuilder app, ILoggerManager logger)
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
         {
             app.UseExceptionHandler(async appError =>
             {
