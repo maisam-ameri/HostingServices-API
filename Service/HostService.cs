@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contracts;
 using Entities;
+using Entities.Exceptions;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 
@@ -31,7 +32,10 @@ namespace Service
         public HostDto GetHost(Guid hostId, bool trackChanges)
         {
             var host = _repository.Host.GetHost(hostId, trackChanges);
-            
+
+            if (host == null)
+                throw new HostNotFoundException(hostId);
+
             var hostDto = _mapper.Map<HostDto>(host);
             return hostDto;
 
