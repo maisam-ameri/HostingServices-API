@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,11 @@ namespace Service
         public IFeatureService FeatureService => _featureService.Value;
 
 
-        public ServiceManager(IRepositoryManager repository,ILoggerManager logger)
+        public ServiceManager(IRepositoryManager repository,ILoggerManager logger,IMapper mapper)
         {
-            _hostService = new Lazy<IHostService>(() => new HostService(repository,logger));
-            _planService = new Lazy<IPlanService>(() => new PlanService(repository,logger));
-            _featureService = new Lazy<IFeatureService>(() => new FeatureService(repository,logger));
+            _hostService = new Lazy<IHostService>(() => new HostService(repository,logger,mapper));
+            _planService = new Lazy<IPlanService>(() => new PlanService(repository,logger,mapper));
+            _featureService = new Lazy<IFeatureService>(() => new FeatureService(repository,logger,mapper));
             
         }
 
