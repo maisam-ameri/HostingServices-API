@@ -22,10 +22,16 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetAllHosts()
         {
-            throw new Exception("Exception");
             var services = _services.HostService.GetAllHosts(trackChanges: false);
-         
+
             return Ok(services);
+        }
+
+        [HttpGet("{id:guid}")]
+        public IActionResult GetHost(Guid id)
+        {
+            var host = _services.HostService.GetHost(id, false);
+            return Ok(host);
         }
     }
 }
