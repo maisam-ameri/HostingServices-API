@@ -7,6 +7,8 @@ namespace Host_Service
     {
         public MappingProfile()
         {
+            CreateMap<Entities.Host, HostDto>();
+
         }
     }
 }
