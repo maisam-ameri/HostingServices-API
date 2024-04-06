@@ -20,7 +20,7 @@ namespace Repository
             .ToList();
 
         public Host GetHost(Guid hostId, bool trackChanges) =>
-            FindAll(trackChanges)
+            FindByCondition( h => h.Id.Equals(hostId),trackChanges)
             .SingleOrDefault();
 
     }

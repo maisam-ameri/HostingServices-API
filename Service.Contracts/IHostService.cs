@@ -5,6 +5,6 @@ namespace Service.Contracts
     public interface IHostService
     {
         IEnumerable<HostDto> GetAllHosts(bool trackChanges);
-        HostDto GetHost(Guid hostId);
+        HostDto GetHost(Guid hostId, bool trackChanges);
     }
 }
