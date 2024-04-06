@@ -24,6 +24,7 @@ namespace Service
             _mapper = mapper;
         }
 
+
         public IEnumerable<PlanDto> GetPlans(Guid hostId, bool trackChanges)
         {
             var host = _repository.Host.GetHost(hostId, trackChanges);
@@ -38,6 +39,19 @@ namespace Service
             var plansDto = _mapper.Map<IEnumerable<PlanDto>>(plans);
             return plansDto;
             
+        }
+        public PlanDto GetPlan(Guid hostId, Guid id, bool trackChanges)
+        {
+            var host = _repository.Host.GetHost(hostId, trackChanges);
+            if(host == null)
+                throw new HostNotFoundException(hostId);
+
+            var plan = _repository.Plan.GetPlan(hostId,id, trackChanges);
+            //if(plan == null)
+            //    throw new PlanNotFoundException(id);
+
+            var planDto = _mapper.Map<PlanDto>(plan);
+            return planDto;
         }
     }
 }
