@@ -18,5 +18,10 @@ namespace Repository
             FindAll(trackChanges)
             .OrderBy(x => x.Name)
             .ToList();
+
+        public Host GetHost(Guid hostId, bool trackChanges) =>
+            FindAll(trackChanges)
+            .SingleOrDefault();
+
     }
 }
