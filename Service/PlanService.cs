@@ -47,8 +47,8 @@ namespace Service
                 throw new HostNotFoundException(hostId);
 
             var plan = _repository.Plan.GetPlan(hostId,id, trackChanges);
-            //if(plan == null)
-            //    throw new PlanNotFoundException(id);
+            if (plan == null)
+                throw new PlanNotFoundException(id);
 
             var planDto = _mapper.Map<PlanDto>(plan);
             return planDto;
