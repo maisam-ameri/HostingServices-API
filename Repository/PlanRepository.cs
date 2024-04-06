@@ -14,9 +14,12 @@ namespace Repository
         {
         }
 
+
         public IEnumerable<Plan> GetPlans(Guid hostId, bool trackChanges) =>
             FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
             .OrderBy( p => p.Name)
             .ToList();
+        public Plan GetPlan(Guid hostId, Guid id, bool trackChanges) =>
+            FindByCondition(p => p.HostId.Equals(hostId) && p.Id.Equals(id), trackChanges).SingleOrDefault();
     }
 }
