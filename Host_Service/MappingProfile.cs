@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Entities;
 using Shared.DataTransferObjects;
 
 namespace Host_Service
@@ -8,6 +9,7 @@ namespace Host_Service
         public MappingProfile()
         {
             CreateMap<Entities.Host, HostDto>();
+            CreateMap<Plan, PlanDto>();
 
         }
     }
