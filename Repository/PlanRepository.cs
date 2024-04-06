@@ -13,5 +13,10 @@ namespace Repository
         public PlanRepository(RepositoryContext context) : base(context)
         {
         }
+
+        public IEnumerable<Plan> GetPlans(Guid hostId, bool trackChanges) =>
+            FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
+            .OrderBy( p => p.Name)
+            .ToList();
     }
 }
