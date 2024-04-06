@@ -24,9 +24,9 @@ namespace Service
 
             try
             {
-                var hosts = _repository.Host.GetAllHosts(trackChanges).Select(h => new HostDto(h.Id,h.Name,h.Description,h.Details)).ToList();
-
-                return hosts;
+                var hosts = _repository.Host.GetAllHosts(trackChanges);
+                var hostsDto = _mapper.Map<IEnumerable<HostDto>>(hosts);
+                return hostsDto;
             }
             catch (Exception ex)
             {
