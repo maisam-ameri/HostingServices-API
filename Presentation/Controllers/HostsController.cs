@@ -22,15 +22,10 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetAllHosts()
         {
-            try
-            {
-                var services = _services.HostService.GetAllHosts(trackChanges: false);
-                return Ok(services);
-            }
-            catch
-            {
-                return StatusCode(500, "Internal server error");
-            }
+            throw new Exception("Exception");
+            var services = _services.HostService.GetAllHosts(trackChanges: false);
+         
+            return Ok(services);
         }
     }
 }
