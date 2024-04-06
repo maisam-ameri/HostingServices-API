@@ -10,5 +10,6 @@ namespace Contracts
     public interface IHostRepository
     {
         IEnumerable<Host> GetAllHosts(bool trackChanges);
+        Host GetHost(Guid hostId, bool trackChanges);
     }
 }
