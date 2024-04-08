@@ -13,5 +13,10 @@ namespace Repository
         public FeatureRepository(RepositoryContext context) : base(context)
         {
         }
+
+        public IEnumerable<Feature> GetFeatures(Guid planId, bool trackChanges)
+            => FindByCondition( f => f.PlanId.Equals(planId),trackChanges)
+            .OrderBy(f => f.DbCount)
+            .ToList();
     }
 }
