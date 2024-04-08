@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contracts;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,13 @@ namespace Service
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public IEnumerable<FeatureDto> GetFeatures(Guid planId,bool trackChanges)
+        {
+            var plan = _repository.Plan.GetPlan(planId, trackChanges);
+            var features = _repository.Feature.GetFeatures(planId, trackChanges);
+
         }
     }
 }
