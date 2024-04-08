@@ -46,3 +46,4 @@ msbuild.wrn
 **/images/content
 **/images/product
 **/images/user
+/Host_Service/internal_logs/internallog.txt
