@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -24,11 +25,18 @@ namespace Service
             _mapper = mapper;
         }
 
-        public IEnumerable<FeatureDto> GetFeatures(Guid planId,bool trackChanges)
+        public IEnumerable<FeatureDto> GetFeatures(Guid hostId, Guid planId,bool trackChanges)
         {
-            var plan = _repository.Plan.GetPlan(planId, trackChanges);
+            var host = _repository.Host.GetHost(hostId, trackChanges);
+            if (host is null) throw new HostNotFoundException(hostId);
+
+            var plan = _repository.Plan.GetPlan(hostId, planId, trackChanges);
+            if(plan is null) throw new PlanNotFoundException(planId);
+
             var features = _repository.Feature.GetFeatures(planId, trackChanges);
 
+            var featuresDto = _mapper.Map<IEnumerable<FeatureDto>>(features);
+            return featuresDto;
         }
     }
 }
