@@ -10,6 +10,7 @@ namespace Host_Service
         {
             CreateMap<Entities.Host, HostDto>();
             CreateMap<Plan, PlanDto>();
+            CreateMap<Feature, FeatureDto>();
 
         }
     }
