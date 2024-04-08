@@ -5,6 +5,6 @@ namespace Service.Contracts
 {
     public interface IFeatureService
     {
-        IEnumerable<FeatureDto> GetFeatures(Guid planId,bool trackChanges);
+        IEnumerable<FeatureDto> GetFeatures(Guid hostId, Guid planId,bool trackChanges);
     }
 }
