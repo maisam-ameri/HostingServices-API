@@ -18,5 +18,13 @@ namespace Presentation.Controllers
         {
             _services = services;
         }
+
+        [HttpGet]
+        public ActionResult GetFeatures(Guid hostId, Guid planId)
+        {
+            var features = _services.FeatureService.GetFeatures(hostId, planId, trackChanges: false);
+
+            return Ok(features);
+        }
     }
 }
