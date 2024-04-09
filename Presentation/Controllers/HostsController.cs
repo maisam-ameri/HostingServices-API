@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,22 @@ namespace Presentation.Controllers
             return Ok(services);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}", Name = "HostById")]
         public IActionResult GetHost(Guid id)
         {
             var host = _services.HostService.GetHost(id, false);
             return Ok(host);
+        }
+
+        [HttpPost]
+        public IActionResult CreateHost([FromBody] HostForCreationDto hostForCreation)
+        {
+            if (hostForCreation is null)
+                return BadRequest($"{nameof(hostForCreation)} object is null");
+
+            var newHost = _services.HostService.CreateHost(hostForCreation);
+
+            return CreatedAtRoute("HostById",new {id = newHost.Id},newHost);
         }
     }
 }
