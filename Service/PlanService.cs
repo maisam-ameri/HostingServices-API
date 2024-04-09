@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities;
 using Entities.Exceptions;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -51,6 +52,21 @@ namespace Service
                 throw new PlanNotFoundException(id);
 
             var planDto = _mapper.Map<PlanDto>(plan);
+            return planDto;
+        }
+
+        public PlanDto CreatePlanForHost(Guid hostId, PlanForCreationDto planForCreation, bool trackChanges)
+        {
+            var host = _repository.Host.GetHost(hostId, trackChanges);
+            if(host is null) throw new HostNotFoundException(hostId);
+
+            var planEntity = _mapper.Map<Plan>(planForCreation);
+
+            _repository.Plan.CreatePlanForHost(hostId, planEntity);
+            _repository.Save();
+
+            var planDto = _mapper.Map<PlanDto>(planEntity);
+
             return planDto;
         }
     }
