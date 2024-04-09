@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Shared.DataTransferObjects
 {
-    public record HostForCreationDto(string Name,string Description, string Details);
+    public record HostForCreationDto(string Name,string Description, string Details,IEnumerable<PlanForCreationDto> Plans);
 }
