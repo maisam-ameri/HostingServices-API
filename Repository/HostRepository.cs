@@ -14,6 +14,7 @@ namespace Repository
         {
         }
 
+
         public IEnumerable<Host> GetAllHosts(bool trackChanges) =>
             FindAll(trackChanges)
             .OrderBy(x => x.Name)
@@ -23,5 +24,7 @@ namespace Repository
             FindByCondition( h => h.Id.Equals(hostId),trackChanges)
             .SingleOrDefault();
 
+        public void CreateHost(Host host)
+            => Create(host);
     }
 }
