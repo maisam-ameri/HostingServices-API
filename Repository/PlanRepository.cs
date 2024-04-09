@@ -21,5 +21,11 @@ namespace Repository
             .ToList();
         public Plan GetPlan(Guid hostId, Guid id, bool trackChanges) =>
             FindByCondition(p => p.HostId.Equals(hostId) && p.Id.Equals(id), trackChanges).SingleOrDefault();
+
+        public void CreatePlanForHost(Guid hostId, Plan plan)
+        {
+            plan.HostId = hostId;
+            Create(plan);
+        }
     }
 }
