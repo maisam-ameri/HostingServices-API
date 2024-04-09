@@ -12,6 +12,7 @@ namespace Host_Service
             CreateMap<Plan, PlanDto>();
             CreateMap<Feature, FeatureDto>();
             CreateMap<HostForCreationDto, Entities.Host>();
+            CreateMap<PlanForCreationDto, Plan>();
         }
     }
 }
