@@ -28,9 +28,9 @@ namespace Presentation.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public IActionResult GetFeature(Guid hostId, Guid palnId, Guid id)
+        public IActionResult GetFeature(Guid hostId, Guid planId, Guid id)
         {
-            var feature = _services.FeatureService.GetFeature(hostId, palnId, id, trackChanges: false);
+            var feature = _services.FeatureService.GetFeature(hostId, planId, id, trackChanges: false);
 
             return Ok(feature);
         }
