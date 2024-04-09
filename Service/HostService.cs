@@ -20,6 +20,7 @@ namespace Service
             _mapper = mapper;
         }
 
+
         public IEnumerable<HostDto> GetAllHosts(bool trackChanges)
         {
 
@@ -39,6 +40,17 @@ namespace Service
             var hostDto = _mapper.Map<HostDto>(host);
             return hostDto;
 
+        }
+        public HostDto CreateHost(HostForCreationDto hostForCreationDto)
+        {
+            var hostEntity = _mapper.Map<Host>(hostForCreationDto);
+            
+            _repository.Host.CreateHost(hostEntity);
+            _repository.Save();
+
+            var hostDto = _mapper.Map<HostDto>(hostEntity);
+
+            return hostDto;
         }
     }
 }
