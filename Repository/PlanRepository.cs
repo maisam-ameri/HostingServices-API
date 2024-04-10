@@ -27,5 +27,7 @@ namespace Repository
             plan.HostId = hostId;
             Create(plan);
         }
+
+        public void DeletePlan(Plan plan) => Delete(plan);
     }
 }
