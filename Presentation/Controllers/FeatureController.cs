@@ -46,5 +46,13 @@ namespace Presentation.Controllers
 
             return CreatedAtRoute("GetFeatureForPlan", new { hostId, planId, newFeature.Id }, newFeature);
         }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteFeatureForPlan(Guid hostId,Guid planId,Guid id)
+        {
+            _services.FeatureService.DeleteFeatureForPlan(hostId,planId,id,hostTrackChanges:false,planTrackChanges:false);
+
+            return NoContent();
+        }
     }
 }
