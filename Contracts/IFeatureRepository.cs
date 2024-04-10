@@ -9,5 +9,6 @@ namespace Contracts
         IEnumerable<Feature> GetFeatures(Guid planId,bool trackChanges);
         Feature GetFeature(Guid planId, Guid id,bool trackChanges);
         void CreateFeatureForPlan(Guid planId, Feature feature);
+        void DeleteFeature(Feature feature);
     }
 }
