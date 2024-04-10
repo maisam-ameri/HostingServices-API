@@ -7,5 +7,6 @@ namespace Service.Contracts
         IEnumerable<HostDto> GetAllHosts(bool trackChanges);
         HostDto GetHost(Guid hostId, bool trackChanges);
         HostDto CreateHost(HostForCreationDto hostDto);
+        void DeleteHost(Guid hostId, bool trackChanges);
     }
 }
