@@ -8,5 +8,7 @@ namespace Service.Contracts
         IEnumerable<FeatureDto> GetFeatures(Guid hostId, Guid planId,bool trackChanges);
 
         FeatureDto GetFeature(Guid hostId, Guid planId, Guid id,bool trackChanges);
+
+        FeatureDto CreateFeatureForPlan(Guid hostId,Guid PlanId, FeatureForCreationDto featureForCreation,bool hostTrackChanges, bool planTrackChanges);
     }
 }
