@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +28,23 @@ namespace Presentation.Controllers
             return Ok(features);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}", Name = "GetFeatureForPlan")]
         public IActionResult GetFeature(Guid hostId, Guid planId, Guid id)
         {
             var feature = _services.FeatureService.GetFeature(hostId, planId, id, trackChanges: false);
 
             return Ok(feature);
+        }
+
+        [HttpPost]
+        public IActionResult CreateFeatureForPlan(Guid hostId, Guid planId, [FromBody] FeatureForCreationDto featureForCreation)
+        {
+            if (featureForCreation is null)
+                return BadRequest($"{nameof(featureForCreation)} object is null");
+
+            var newFeature = _services.FeatureService.CreateFeatureForPlan(hostId, planId, featureForCreation,false,false);
+
+            return CreatedAtRoute("GetFeatureForPlan", new { hostId, planId, newFeature.Id }, newFeature);
         }
     }
 }
