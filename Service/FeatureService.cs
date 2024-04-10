@@ -75,5 +75,21 @@ namespace Service
             var featureDto = _mapper.Map<FeatureDto>(featureEntity);
             return featureDto;
         }
+
+        public void DeleteFeatureForPlan(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges)
+        {
+            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            if(hostEntity is null) throw new HostNotFoundException(hostId);
+
+            var plan = _repository.Plan.GetPlan(hostId,planId, planTrackChanges);
+            if (plan is null) throw new PlanNotFoundException(planId);
+
+            var featureEntity = _repository.Feature.GetFeature(planId,id, planTrackChanges);
+
+            if (featureEntity is null) throw new FeatureNotFoundException(id);
+
+            _repository.Feature.DeleteFeature(featureEntity);
+            _repository.Save();
+        }
     }
 }
