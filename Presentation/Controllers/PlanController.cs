@@ -45,5 +45,13 @@ namespace Presentation.Controllers
 
             return CreatedAtRoute("GetPlanForHost", new { hostId = hostId, id = newPlan.id }, newPlan);
         }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeletePlanForHost(Guid hostId,Guid id)
+        {
+            _service.PlanService.DeletePlanForHost(hostId,id,hostTrackChanges:false,planTrackChanges:false);
+
+            return NoContent();
+        }
     }
 }
