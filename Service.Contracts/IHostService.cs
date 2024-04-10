@@ -8,5 +8,6 @@ namespace Service.Contracts
         HostDto GetHost(Guid hostId, bool trackChanges);
         HostDto CreateHost(HostForCreationDto hostDto);
         void DeleteHost(Guid hostId, bool trackChanges);
+        void UpdateHost(Guid hostId, HostForUpdateDto hostForUpdate,bool trackChanges);
     }
 }
