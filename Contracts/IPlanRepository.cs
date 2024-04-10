@@ -8,5 +8,6 @@ namespace Contracts
         IEnumerable<Plan> GetPlans(Guid hostId,bool trackChanges);
         Plan GetPlan(Guid hostId,Guid id,bool trackChanges);
         void CreatePlanForHost(Guid hostId, Plan plan);
+        void DeletePlan(Plan plan);
     }
 }
