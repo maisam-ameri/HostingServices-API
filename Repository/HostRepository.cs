@@ -26,5 +26,7 @@ namespace Repository
 
         public void CreateHost(Host host)
             => Create(host);
+
+        public void DeleteHost(Host host) => Delete(host);
     }
 }
