@@ -52,5 +52,14 @@ namespace Service
 
             return hostDto;
         }
+
+        public void DeleteHost(Guid hostId, bool trackChanges)
+        {
+            var hostEntity = _repository.Host.GetHost(hostId, trackChanges);
+            if (hostEntity is null) throw new HostNotFoundException(hostId);
+
+            _repository.Host.DeleteHost(hostEntity);
+            _repository.Save();
+        }
     }
 }
