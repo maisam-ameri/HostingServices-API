@@ -28,5 +28,7 @@ namespace Repository
             feature.PlanId = planId;
             Create(feature);
         }
+
+        public void DeleteFeature(Feature feature) => Delete(feature);
     }
 }
