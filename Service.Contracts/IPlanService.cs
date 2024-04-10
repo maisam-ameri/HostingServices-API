@@ -9,6 +9,6 @@ namespace Service.Contracts
         PlanDto GetPlan(Guid hostId,Guid id,bool trackChanges);
         PlanDto CreatePlanForHost(Guid hostId,PlanForCreationDto planForCreation,bool trackChanges);
 
-        void DeletePlanForHost(Guid hostId, Guid id, bool trackChanges);
+        void DeletePlanForHost(Guid hostId, Guid id, bool hostTrackChanges,bool planTrackChanges);
     }
 }
