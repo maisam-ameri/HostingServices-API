@@ -12,5 +12,6 @@ namespace Contracts
         IEnumerable<Host> GetAllHosts(bool trackChanges);
         Host GetHost(Guid hostId, bool trackChanges);
         void CreateHost(Host host);
+        void DeleteHost(Host host);
     }
 }
