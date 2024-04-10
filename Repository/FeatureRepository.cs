@@ -14,6 +14,7 @@ namespace Repository
         {
         }
 
+
         public Feature GetFeature(Guid planId, Guid id, bool trackChanges)
             => FindByCondition( f => f.PlanId.Equals(planId) && f.Id.Equals(id), trackChanges)
             .SingleOrDefault();
@@ -22,5 +23,10 @@ namespace Repository
             => FindByCondition( f => f.PlanId.Equals(planId),trackChanges)
             .OrderBy(f => f.DbCount)
             .ToList();
+        public void CreateFeatureForPlan(Guid planId, Feature feature)
+        {
+            feature.PlanId = planId;
+            Create(feature);
+        }
     }
 }
