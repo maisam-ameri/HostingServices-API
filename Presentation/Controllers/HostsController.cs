@@ -43,13 +43,24 @@ namespace Presentation.Controllers
 
             var newHost = _services.HostService.CreateHost(hostForCreation);
 
-            return CreatedAtRoute("HostById",new {id = newHost.Id},newHost);
+            return CreatedAtRoute("HostById", new { id = newHost.Id }, newHost);
         }
 
         [HttpDelete("{id:guid}")]
         public IActionResult DeleteHost(Guid id)
         {
             _services.HostService.DeleteHost(id, false);
+            return NoContent();
+        }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdateHost(Guid id, [FromBody] HostForUpdateDto hostForUpdate)
+        {
+            if (hostForUpdate is null)
+                return BadRequest($"{nameof(hostForUpdate)} object is null");
+
+            _services.HostService.UpdateHost(id, hostForUpdate, true);
+
             return NoContent();
         }
 
