@@ -53,5 +53,16 @@ namespace Presentation.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdatePlanForHost(Guid hostId,Guid id, [FromBody] PlanForUpdateDto planForUpdate)
+        {
+            if (planForUpdate is null)
+                return BadRequest($"{nameof(planForUpdate)} object is null");
+
+            _service.PlanService.UpdatePlanForHost(hostId, id, planForUpdate,hostTrackChanges:false ,planTrackChanges: true);
+
+            return NoContent();
+        }
     }
 }
