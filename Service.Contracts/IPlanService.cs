@@ -10,5 +10,7 @@ namespace Service.Contracts
         PlanDto CreatePlanForHost(Guid hostId,PlanForCreationDto planForCreation,bool trackChanges);
 
         void DeletePlanForHost(Guid hostId, Guid id, bool hostTrackChanges,bool planTrackChanges);
+
+        void UpdatePlanForHost(Guid hostId,Guid id,PlanForUpdateDto planForUpdate,bool hostTrackChanges, bool planTrackChanges);
     }
 }
