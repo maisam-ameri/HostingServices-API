@@ -13,6 +13,6 @@ namespace Service.Contracts
 
         void DeleteFeatureForPlan(Guid hostId, Guid planId,Guid id,bool hostTrackChanges, bool planTrackChanges);
 
-        FeatureDto UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate,bool hostTrackChanges,bool planTrackChanges,bool featureTrackChanges);
+        void UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate,bool hostTrackChanges,bool planTrackChanges,bool featureTrackChanges);
     }
 }
