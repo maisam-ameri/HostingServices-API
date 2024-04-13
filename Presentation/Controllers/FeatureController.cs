@@ -54,5 +54,16 @@ namespace Presentation.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdateFeatureForPlan(Guid hostId,Guid planId,Guid id,[FromBody] FeatureForUpdateDto featureForUpdate)
+        {
+            if (featureForUpdate is null)
+                return BadRequest($"{nameof(featureForUpdate)} object is null");
+
+            _services.FeatureService.UpdateFeatureForPlan(hostId, planId, id, featureForUpdate, false, false, true);
+
+            return NoContent();
+        }
     }
 }
