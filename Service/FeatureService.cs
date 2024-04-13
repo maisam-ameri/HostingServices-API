@@ -91,5 +91,20 @@ namespace Service
             _repository.Feature.DeleteFeature(featureEntity);
             _repository.Save();
         }
+
+        public void UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges)
+        {
+            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            if (hostEntity is null) throw new HostNotFoundException(hostId);
+
+            var planEntity = _repository.Plan.GetPlan(hostId,planId, planTrackChanges);
+            if(planEntity is null) throw new PlanNotFoundException(planId);
+
+            var featureEntity = _repository.Feature.GetFeature(planId, id, featureTrackChanges);
+            if (featureEntity is null) throw new FeatureNotFoundException(id);
+
+            _mapper.Map(featureForUpdate, featureEntity);
+            _repository.Save();
+        }
     }
 }
