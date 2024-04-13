@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record PlanForUpdateDto(string Name, double Price);
+    public record PlanForUpdateDto(string Name, double Price, IEnumerable<FeatureForUpdateDto> Features);
 }
