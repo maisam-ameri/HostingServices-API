@@ -82,5 +82,16 @@ namespace Service
             _repository.Save();
         }
 
+        public void UpdatePlanForHost(Guid hostId, Guid id, PlanForUpdateDto planForUpdate, bool hostTrackChanges, bool planTrackChanges)
+        {
+            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            if (hostEntity is null) throw new HostNotFoundException(hostId);
+
+            var planEntity = _repository.Plan.GetPlan(hostId, id, planTrackChanges);
+            if (planEntity is null) throw new PlanNotFoundException(id);
+
+            _mapper.Map(planForUpdate, planEntity);
+            _repository.Save();
+        }
     }
 }
