@@ -106,5 +106,26 @@ namespace Service
             _mapper.Map(featureForUpdate, featureEntity);
             _repository.Save();
         }
+
+        public (FeatureForUpdateDto featureForUpdate, Feature featureEntity) GetfeatureForPatch(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges)
+        {
+            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            if (hostEntity is null) throw new HostNotFoundException(hostId);
+
+            var planEntity = _repository.Plan.GetPlan(hostId, planId, planTrackChanges);
+            if (planEntity is null) throw new PlanNotFoundException(planId);
+
+            var featureEntity = _repository.Feature.GetFeature(planId, id, featureTrackChanges);
+            if (featureEntity is null) throw new FeatureNotFoundException(id);
+
+            var featureForUpdate = _mapper.Map<FeatureForUpdateDto>(featureEntity);
+
+            return (featureForUpdate, featureEntity);
+        }
+
+        public void SaveChangesForChanges(FeatureForUpdateDto featureForUpdate, Feature featureEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
