@@ -9,13 +9,15 @@ namespace Host_Service
         public MappingProfile()
         {
             CreateMap<Entities.Host, HostDto>();
-            CreateMap<Plan, PlanDto>();
-            CreateMap<Feature, FeatureDto>();
             CreateMap<HostForCreationDto, Entities.Host>();
-            CreateMap<PlanForCreationDto, Plan>();
-            CreateMap<FeatureForCreationDto, Feature>();
             CreateMap<HostForUpdateDto, Entities.Host>();
-            CreateMap<PlanForUpdateDto, Plan>();
+
+            CreateMap<Plan, PlanDto>();
+            CreateMap<PlanForCreationDto, Plan>();
+            CreateMap<PlanForUpdateDto, Plan>().ReverseMap();
+
+            CreateMap<Feature, FeatureDto>();
+            CreateMap<FeatureForCreationDto, Feature>();
             CreateMap<FeatureForUpdateDto, Feature>();
         }
     }
