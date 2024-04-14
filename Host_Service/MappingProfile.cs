@@ -18,7 +18,7 @@ namespace Host_Service
 
             CreateMap<Feature, FeatureDto>();
             CreateMap<FeatureForCreationDto, Feature>();
-            CreateMap<FeatureForUpdateDto, Feature>();
+            CreateMap<FeatureForUpdateDto, Feature>().ReverseMap();
         }
     }
 }
