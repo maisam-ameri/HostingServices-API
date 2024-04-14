@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -42,26 +43,40 @@ namespace Presentation.Controllers
             if (featureForCreation is null)
                 return BadRequest($"{nameof(featureForCreation)} object is null");
 
-            var newFeature = _services.FeatureService.CreateFeatureForPlan(hostId, planId, featureForCreation,false,false);
+            var newFeature = _services.FeatureService.CreateFeatureForPlan(hostId, planId, featureForCreation, false, false);
 
             return CreatedAtRoute("GetFeatureForPlan", new { hostId, planId, newFeature.Id }, newFeature);
         }
 
         [HttpDelete("{id:guid}")]
-        public IActionResult DeleteFeatureForPlan(Guid hostId,Guid planId,Guid id)
+        public IActionResult DeleteFeatureForPlan(Guid hostId, Guid planId, Guid id)
         {
-            _services.FeatureService.DeleteFeatureForPlan(hostId,planId,id,hostTrackChanges:false,planTrackChanges:false);
+            _services.FeatureService.DeleteFeatureForPlan(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false);
 
             return NoContent();
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateFeatureForPlan(Guid hostId,Guid planId,Guid id,[FromBody] FeatureForUpdateDto featureForUpdate)
+        public IActionResult UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, [FromBody] FeatureForUpdateDto featureForUpdate)
         {
             if (featureForUpdate is null)
                 return BadRequest($"{nameof(featureForUpdate)} object is null");
 
             _services.FeatureService.UpdateFeatureForPlan(hostId, planId, id, featureForUpdate, false, false, true);
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id:guid}")]
+        public IActionResult PartiallyUpdateFeature(Guid hostId, Guid planId, Guid id, [FromBody] JsonPatchDocument<FeatureForUpdateDto> patchDoc)
+        {
+            if (patchDoc is null)
+                return BadRequest($"{nameof(patchDoc)} object is null");
+
+            var result = _services.FeatureService.GetfeatureForPatch(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false, featureTrackChanges: true);
+
+            patchDoc.ApplyTo(result.featureForUpdate);
+            _services.FeatureService.SaveChangesForChanges(result.featureForUpdate, result.featureEntity);
 
             return NoContent();
         }
