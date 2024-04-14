@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -63,6 +64,23 @@ namespace Presentation.Controllers
             _service.PlanService.UpdatePlanForHost(hostId, id, planForUpdate,hostTrackChanges:false ,planTrackChanges: true);
 
             return NoContent();
+        }
+
+        [HttpPatch("{id:guid}")]
+        public IActionResult PartiallyUpdatePlanForHost(Guid hostId,Guid id, [FromBody] JsonPatchDocument<PlanForUpdateDto> patchDoc)
+        {
+            
+            if(patchDoc is null)
+                return BadRequest($"{nameof(patchDoc)} object is null");
+            
+            var result = _service.PlanService.GetPlanForPatch(hostId, id,hostTrackChanges: false,planTrackChanges: true);
+
+            patchDoc.ApplyTo(result.planForUpdate);
+
+            _service.PlanService.SaveChangesForPatch(result.planForUpdate, result.planEntity);
+
+            return NoContent();
+
         }
     }
 }
