@@ -17,5 +17,7 @@ namespace Service.Contracts
         void UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate,bool hostTrackChanges,bool planTrackChanges,bool featureTrackChanges);
 
         (FeatureForUpdateDto featureForUpdate, Feature featureEntity) GetfeatureForPatch(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges);
+
+        void SaveChangesForChanges(FeatureForUpdateDto featureForUpdate,Feature featureEntity);
     }
 }
