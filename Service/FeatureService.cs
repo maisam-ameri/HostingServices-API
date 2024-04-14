@@ -125,7 +125,8 @@ namespace Service
 
         public void SaveChangesForChanges(FeatureForUpdateDto featureForUpdate, Feature featureEntity)
         {
-            throw new NotImplementedException();
+            _mapper.Map(featureForUpdate, featureEntity);
+            _repository.Save();
         }
     }
 }
