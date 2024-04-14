@@ -106,5 +106,11 @@ namespace Service
 
             return (planForUpdateDto, planEntity);
         }
+
+        public void SaveChangesForPatch(PlanForUpdateDto planForUpdate, Plan planEntity)
+        {
+            _mapper.Map(planForUpdate, planEntity);
+            _repository.Save();
+        }
     }
 }
