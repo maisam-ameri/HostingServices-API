@@ -16,5 +16,7 @@ namespace Service.Contracts
         void UpdatePlanForHost(Guid hostId,Guid id,PlanForUpdateDto planForUpdate,bool hostTrackChanges, bool planTrackChanges);
 
         (PlanForUpdateDto planForUpdate, Plan planEntity) GetPlanForPatch(Guid hostId, Guid id, bool hostTrackChanges, bool planTrackChanges);
+
+        void SaveChangesForPatch(PlanForUpdateDto planForUpdate, Plan planEntity);
     }
 }
