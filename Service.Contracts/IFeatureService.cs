@@ -1,4 +1,5 @@
 ﻿
+using Entities;
 using Shared.DataTransferObjects;
 
 namespace Service.Contracts
@@ -14,5 +15,7 @@ namespace Service.Contracts
         void DeleteFeatureForPlan(Guid hostId, Guid planId,Guid id,bool hostTrackChanges, bool planTrackChanges);
 
         void UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate,bool hostTrackChanges,bool planTrackChanges,bool featureTrackChanges);
+
+        (FeatureForUpdateDto featureForUpdate, Feature featureEntity) GetfeatureForPatch(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges);
     }
 }
