@@ -10,5 +10,7 @@ namespace Shared.DataTransferObjects
 
         [Required(ErrorMessage = "{0} is a required field.")]
         public double Price { get; set; }
+        
+        public IEnumerable<FeatureForUpdateDto>? Features { get; set; }
     }
 }

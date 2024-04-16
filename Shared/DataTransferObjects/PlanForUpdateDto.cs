@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Shared.DataTransferObjects
 {
-    public record PlanForUpdateDto(string Name, double Price, IEnumerable<FeatureForUpdateDto> Features);
+    public record PlanForUpdateDto() : PlanForManipulationDto;
+
 }
