@@ -41,6 +41,9 @@ namespace Presentation.Controllers
             if (hostForCreation is null)
                 return BadRequest($"{nameof(hostForCreation)} object is null");
 
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
             var newHost = _services.HostService.CreateHost(hostForCreation);
 
             return CreatedAtRoute("HostById", new { id = newHost.Id }, newHost);
@@ -58,6 +61,9 @@ namespace Presentation.Controllers
         {
             if (hostForUpdate is null)
                 return BadRequest($"{nameof(hostForUpdate)} object is null");
+
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
 
             _services.HostService.UpdateHost(id, hostForUpdate, true);
 
