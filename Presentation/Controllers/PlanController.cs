@@ -82,6 +82,7 @@ namespace Presentation.Controllers
             var result = _service.PlanService.GetPlanForPatch(hostId, id,hostTrackChanges: false,planTrackChanges: true);
 
             patchDoc.ApplyTo(result.planForUpdate,ModelState);
+            TryValidateModel(result.planForUpdate);
 
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
