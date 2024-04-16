@@ -81,7 +81,10 @@ namespace Presentation.Controllers
             
             var result = _service.PlanService.GetPlanForPatch(hostId, id,hostTrackChanges: false,planTrackChanges: true);
 
-            patchDoc.ApplyTo(result.planForUpdate);
+            patchDoc.ApplyTo(result.planForUpdate,ModelState);
+
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
 
             _service.PlanService.SaveChangesForPatch(result.planForUpdate, result.planEntity);
 
