@@ -1,6 +1,6 @@
 ﻿
 namespace Shared.DataTransferObjects
 {
-    public record PlanForUpdateDto() : PlanForManipulationDto;
+    public record PlanForUpdateDto : PlanForManipulationDto;
 
 }
