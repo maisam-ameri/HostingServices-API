@@ -42,6 +42,9 @@ namespace Presentation.Controllers
             if (planForCreation is null)
                 return BadRequest($"{nameof(planForCreation)} object is null");
 
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
             var newPlan = _service.PlanService.CreatePlanForHost(hostId, planForCreation, false);
 
             return CreatedAtRoute("GetPlanForHost", new { hostId = hostId, id = newPlan.id }, newPlan);
