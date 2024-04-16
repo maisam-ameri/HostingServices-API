@@ -64,6 +64,9 @@ namespace Presentation.Controllers
             if (planForUpdate is null)
                 return BadRequest($"{nameof(planForUpdate)} object is null");
 
+            if(!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
             _service.PlanService.UpdatePlanForHost(hostId, id, planForUpdate,hostTrackChanges:false ,planTrackChanges: true);
 
             return NoContent();
