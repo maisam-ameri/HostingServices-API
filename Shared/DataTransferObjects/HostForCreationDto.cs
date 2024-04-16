@@ -1,5 +1,5 @@
 ﻿
 namespace Shared.DataTransferObjects
 {
-    public record HostForCreationDto(string Name,string Description, string Details,IEnumerable<PlanForCreationDto> Plans);
+    public record HostForCreationDto() : HostForManipulationDto;
 }
