@@ -32,7 +32,7 @@ namespace Service
             var host = _repository.Host.GetHostAsync(hostId, trackChanges);
             if (host is null) throw new HostNotFoundException(hostId);
 
-            var plan = _repository.Plan.GetPlan(hostId, planId, trackChanges);
+            var plan = _repository.Plan.GetPlanAsync(hostId, planId, trackChanges);
             if (plan is null) throw new PlanNotFoundException(planId);
 
             var feature = _repository.Feature.GetFeature(planId, id, trackChanges);
@@ -50,7 +50,7 @@ namespace Service
             var host = _repository.Host.GetHostAsync(hostId, trackChanges);
             if (host is null) throw new HostNotFoundException(hostId);
 
-            var plan = _repository.Plan.GetPlan(hostId, planId, trackChanges);
+            var plan = _repository.Plan.GetPlanAsync(hostId, planId, trackChanges);
             if(plan is null) throw new PlanNotFoundException(planId);
 
             var features = _repository.Feature.GetFeatures(planId, trackChanges);
@@ -64,7 +64,7 @@ namespace Service
             var host = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if(host is null) throw new HostNotFoundException(hostId);
 
-            var plan = _repository.Plan.GetPlan(hostId, PlanId, planTrackChanges);
+            var plan = _repository.Plan.GetPlanAsync(hostId, PlanId, planTrackChanges);
             if (plan is null) throw new PlanNotFoundException(PlanId);
 
             var featureEntity = _mapper.Map<Feature>(featureForCreation);
@@ -81,7 +81,7 @@ namespace Service
             var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if(hostEntity is null) throw new HostNotFoundException(hostId);
 
-            var plan = _repository.Plan.GetPlan(hostId,planId, planTrackChanges);
+            var plan = _repository.Plan.GetPlanAsync(hostId,planId, planTrackChanges);
             if (plan is null) throw new PlanNotFoundException(planId);
 
             var featureEntity = _repository.Feature.GetFeature(planId,id, planTrackChanges);
@@ -97,7 +97,7 @@ namespace Service
             var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
-            var planEntity = _repository.Plan.GetPlan(hostId,planId, planTrackChanges);
+            var planEntity = _repository.Plan.GetPlanAsync(hostId,planId, planTrackChanges);
             if(planEntity is null) throw new PlanNotFoundException(planId);
 
             var featureEntity = _repository.Feature.GetFeature(planId, id, featureTrackChanges);
@@ -112,7 +112,7 @@ namespace Service
             var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
-            var planEntity = _repository.Plan.GetPlan(hostId, planId, planTrackChanges);
+            var planEntity = _repository.Plan.GetPlanAsync(hostId, planId, planTrackChanges);
             if (planEntity is null) throw new PlanNotFoundException(planId);
 
             var featureEntity = _repository.Feature.GetFeature(planId, id, featureTrackChanges);

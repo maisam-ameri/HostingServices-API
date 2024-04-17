@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,11 @@ namespace Repository
         }
 
 
-        public IEnumerable<Plan> GetPlans(Guid hostId, bool trackChanges) =>
-            FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
+        public async Task<IEnumerable<Plan>> GetPlansAsync(Guid hostId, bool trackChanges) => await FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
             .OrderBy( p => p.Name)
-            .ToList();
-        public Plan GetPlan(Guid hostId, Guid id, bool trackChanges) =>
-            FindByCondition(p => p.HostId.Equals(hostId) && p.Id.Equals(id), trackChanges).SingleOrDefault();
+            .ToListAsync();
+
+        public async Task<Plan> GetPlanAsync(Guid hostId, Guid id, bool trackChanges) => await FindByCondition(p => p.HostId.Equals(hostId) && p.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
 
         public void CreatePlanForHost(Guid hostId, Plan plan)
         {

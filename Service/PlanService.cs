@@ -32,7 +32,7 @@ namespace Service
             if (host == null)
                 throw new HostNotFoundException(hostId);
 
-            var plans = _repository.Plan.GetPlans(hostId, trackChanges);
+            var plans = _repository.Plan.GetPlansAsync(hostId, trackChanges);
             //if (plans == null)
             //    throw new PlanNotFoundException(hostId);
 
@@ -47,7 +47,7 @@ namespace Service
             if(host == null)
                 throw new HostNotFoundException(hostId);
 
-            var plan = _repository.Plan.GetPlan(hostId,id, trackChanges);
+            var plan = _repository.Plan.GetPlanAsync(hostId,id, trackChanges);
             if (plan == null)
                 throw new PlanNotFoundException(id);
 
@@ -75,7 +75,7 @@ namespace Service
             var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if(hostEntity is null) throw new HostNotFoundException(hostId);
 
-            var planEntity = _repository.Plan.GetPlan(hostId, id, planTrackChanges);
+            var planEntity = _repository.Plan.GetPlanAsync(hostId, id, planTrackChanges);
             if (planEntity is null) throw new PlanNotFoundException(id);
 
             _repository.Plan.DeletePlan(planEntity);
@@ -87,7 +87,7 @@ namespace Service
             var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
-            var planEntity = _repository.Plan.GetPlan(hostId, id, planTrackChanges);
+            var planEntity = _repository.Plan.GetPlanAsync(hostId, id, planTrackChanges);
             if (planEntity is null) throw new PlanNotFoundException(id);
 
             _mapper.Map(planForUpdate, planEntity);
@@ -99,7 +99,7 @@ namespace Service
             var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
-            var planEntity = _repository.Plan.GetPlan(hostId, id, planTrackChanges);
+            var planEntity = _repository.Plan.GetPlanAsync(hostId, id, planTrackChanges);
             if (planEntity is null) throw new PlanNotFoundException(id);
 
             var planForUpdateDto = _mapper.Map<PlanForUpdateDto>(planEntity);

@@ -5,8 +5,8 @@ namespace Contracts
 {
     public interface IPlanRepository
     {
-        IEnumerable<Plan> GetPlans(Guid hostId,bool trackChanges);
-        Plan GetPlan(Guid hostId,Guid id,bool trackChanges);
+        Task<IEnumerable<Plan>> GetPlansAsync(Guid hostId,bool trackChanges);
+        Task<Plan> GetPlanAsync(Guid hostId,Guid id,bool trackChanges);
         void CreatePlanForHost(Guid hostId, Plan plan);
         void DeletePlan(Plan plan);
     }
