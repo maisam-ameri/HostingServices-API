@@ -12,6 +12,6 @@ namespace Contracts
         IPlanRepository Plan { get; }
         IFeatureRepository Feature { get; }
 
-        void Save();
+        Task SaveAsync();
     }
 }

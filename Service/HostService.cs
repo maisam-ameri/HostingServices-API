@@ -46,7 +46,7 @@ namespace Service
             var hostEntity = _mapper.Map<Host>(hostForCreationDto);
             
             _repository.Host.CreateHost(hostEntity);
-            _repository.Save();
+            _repository.SaveAsync();
 
             var hostDto = _mapper.Map<HostDto>(hostEntity);
 
@@ -59,7 +59,7 @@ namespace Service
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             _repository.Host.DeleteHost(hostEntity);
-            _repository.Save();
+            _repository.SaveAsync();
         }
 
         public void UpdateHost(Guid hostId, HostForUpdateDto hostForUpdate, bool trackChanges)
@@ -68,7 +68,7 @@ namespace Service
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             _mapper.Map(hostForUpdate, hostEntity);
-            _repository.Save();
+            _repository.SaveAsync();
         }
     }
 }

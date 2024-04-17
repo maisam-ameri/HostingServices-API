@@ -63,7 +63,7 @@ namespace Service
             var planEntity = _mapper.Map<Plan>(planForCreation);
 
             _repository.Plan.CreatePlanForHost(hostId, planEntity);
-            _repository.Save();
+            _repository.SaveAsync();
 
             var planDto = _mapper.Map<PlanDto>(planEntity);
 
@@ -79,7 +79,7 @@ namespace Service
             if (planEntity is null) throw new PlanNotFoundException(id);
 
             _repository.Plan.DeletePlan(planEntity);
-            _repository.Save();
+            _repository.SaveAsync();
         }
 
         public void UpdatePlanForHost(Guid hostId, Guid id, PlanForUpdateDto planForUpdate, bool hostTrackChanges, bool planTrackChanges)
@@ -91,7 +91,7 @@ namespace Service
             if (planEntity is null) throw new PlanNotFoundException(id);
 
             _mapper.Map(planForUpdate, planEntity);
-            _repository.Save();
+            _repository.SaveAsync();
         }
 
         public (PlanForUpdateDto planForUpdate, Plan planEntity) GetPlanForPatch(Guid hostId, Guid id, bool hostTrackChanges, bool planTrackChanges)
@@ -110,7 +110,7 @@ namespace Service
         public void SaveChangesForPatch(PlanForUpdateDto planForUpdate, Plan planEntity)
         {
             _mapper.Map(planForUpdate, planEntity);
-            _repository.Save();
+            _repository.SaveAsync();
         }
     }
 }

@@ -70,7 +70,7 @@ namespace Service
             var featureEntity = _mapper.Map<Feature>(featureForCreation);
 
             _repository.Feature.CreateFeatureForPlan(PlanId, featureEntity);
-            _repository.Save();
+            _repository.SaveAsync();
 
             var featureDto = _mapper.Map<FeatureDto>(featureEntity);
             return featureDto;
@@ -89,7 +89,7 @@ namespace Service
             if (featureEntity is null) throw new FeatureNotFoundException(id);
 
             _repository.Feature.DeleteFeature(featureEntity);
-            _repository.Save();
+            _repository.SaveAsync();
         }
 
         public void UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges)
@@ -104,7 +104,7 @@ namespace Service
             if (featureEntity is null) throw new FeatureNotFoundException(id);
 
             _mapper.Map(featureForUpdate, featureEntity);
-            _repository.Save();
+            _repository.SaveAsync();
         }
 
         public (FeatureForUpdateDto featureForUpdate, Feature featureEntity) GetfeatureForPatch(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges)
@@ -126,7 +126,7 @@ namespace Service
         public void SaveChangesForChanges(FeatureForUpdateDto featureForUpdate, Feature featureEntity)
         {
             _mapper.Map(featureForUpdate, featureEntity);
-            _repository.Save();
+            _repository.SaveAsync();
         }
     }
 }
