@@ -9,8 +9,8 @@ namespace Contracts
 {
     public interface IHostRepository
     {
-        Task<IEnumerable<Host>> GetAllHosts(bool trackChanges);
-        Task<Host> GetHost(Guid hostId, bool trackChanges);
+        Task<IEnumerable<Host>> GetAllHostsAsync(bool trackChanges);
+        Task<Host> GetHostAsync(Guid hostId, bool trackChanges);
         void CreateHost(Host host);
         void DeleteHost(Host host);
     }
