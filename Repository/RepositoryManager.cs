@@ -30,9 +30,9 @@ namespace Repository
             _featureRepository = new Lazy<IFeatureRepository>(() => new FeatureRepository(context));
         }
 
-        public void SaveAsync()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
