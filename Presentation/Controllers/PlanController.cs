@@ -25,14 +25,14 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetPlansForHost(Guid hostId)
         {
-            var plans = _service.PlanService.GetPlans(hostId,false);
+            var plans = _service.PlanService.GetPlansAsync(hostId,false);
             return Ok(plans);
         }
 
         [HttpGet("{id:guid}",Name ="GetPlanForHost")]
         public IActionResult GetPlanForHost(Guid hostId, Guid id)
         {
-            var plan = _service.PlanService.GetPlan(hostId,id,false);
+            var plan = _service.PlanService.GetPlanAsync(hostId,id,false);
             return Ok(plan);
         }
 
@@ -45,7 +45,7 @@ namespace Presentation.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            var newPlan = _service.PlanService.CreatePlanForHost(hostId, planForCreation, false);
+            var newPlan = _service.PlanService.CreatePlanForHostAsync(hostId, planForCreation, false);
 
             return CreatedAtRoute("GetPlanForHost", new { hostId = hostId, id = newPlan.id }, newPlan);
         }
@@ -53,7 +53,7 @@ namespace Presentation.Controllers
         [HttpDelete("{id:guid}")]
         public IActionResult DeletePlanForHost(Guid hostId,Guid id)
         {
-            _service.PlanService.DeletePlanForHost(hostId,id,hostTrackChanges:false,planTrackChanges:false);
+            _service.PlanService.DeletePlanForHostAsync(hostId,id,hostTrackChanges:false,planTrackChanges:false);
 
             return NoContent();
         }
@@ -67,7 +67,7 @@ namespace Presentation.Controllers
             if(!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            _service.PlanService.UpdatePlanForHost(hostId, id, planForUpdate,hostTrackChanges:false ,planTrackChanges: true);
+            _service.PlanService.UpdatePlanForHostAsync(hostId, id, planForUpdate,hostTrackChanges:false ,planTrackChanges: true);
 
             return NoContent();
         }
@@ -79,7 +79,7 @@ namespace Presentation.Controllers
             if(patchDoc is null)
                 return BadRequest($"{nameof(patchDoc)} object is null");
             
-            var result = _service.PlanService.GetPlanForPatch(hostId, id,hostTrackChanges: false,planTrackChanges: true);
+            var result = _service.PlanService.GetPlanForPatchAsync(hostId, id,hostTrackChanges: false,planTrackChanges: true);
 
             patchDoc.ApplyTo(result.planForUpdate,ModelState);
             TryValidateModel(result.planForUpdate);
