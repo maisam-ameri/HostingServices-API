@@ -23,7 +23,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllHosts()
         {
-            var services = await _services.HostService.GetAllHosts(trackChanges: false);
+            var services = await _services.HostService.GetAllHostsAsync(trackChanges: false);
 
             return Ok(services);
         }
@@ -31,7 +31,7 @@ namespace Presentation.Controllers
         [HttpGet("{id:guid}", Name = "HostById")]
         public async Task<IActionResult> GetHost(Guid id)
         {
-            var host = await _services.HostService.GetHost(id, false);
+            var host = await _services.HostService.GetHostAsync(id, false);
             return Ok(host);
         }
 
@@ -44,7 +44,7 @@ namespace Presentation.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            var newHost = await _services.HostService.CreateHost(hostForCreation);
+            var newHost = await _services.HostService.CreateHostAsync(hostForCreation);
 
             return CreatedAtRoute("HostById", new { id = newHost.Id }, newHost);
         }
@@ -52,7 +52,7 @@ namespace Presentation.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteHost(Guid id)
         {
-            await _services.HostService.DeleteHost(id, false);
+            await _services.HostService.DeleteHostAsync(id, false);
             return NoContent();
         }
 
@@ -65,7 +65,7 @@ namespace Presentation.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            await _services.HostService.UpdateHost(id, hostForUpdate, true);
+            await _services.HostService.UpdateHostAsync(id, hostForUpdate, true);
 
             return NoContent();
         }

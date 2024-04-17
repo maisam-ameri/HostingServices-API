@@ -4,10 +4,10 @@ namespace Service.Contracts
 {
     public interface IHostService
     {
-        Task<IEnumerable<HostDto>> GetAllHosts(bool trackChanges);
-        Task<HostDto> GetHost(Guid hostId, bool trackChanges);
-        Task<HostDto> CreateHost(HostForCreationDto hostDto);
-        Task DeleteHost(Guid hostId, bool trackChanges);
-        Task UpdateHost(Guid hostId, HostForUpdateDto hostForUpdate,bool trackChanges);
+        Task<IEnumerable<HostDto>> GetAllHostsAsync(bool trackChanges);
+        Task<HostDto> GetHostAsync(Guid hostId, bool trackChanges);
+        Task<HostDto> CreateHostAsync(HostForCreationDto hostDto);
+        Task DeleteHostAsync(Guid hostId, bool trackChanges);
+        Task UpdateHostAsync(Guid hostId, HostForUpdateDto hostForUpdate,bool trackChanges);
     }
 }
