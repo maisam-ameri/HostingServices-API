@@ -35,7 +35,7 @@ namespace Service
             var plan = _repository.Plan.GetPlanAsync(hostId, planId, trackChanges);
             if (plan is null) throw new PlanNotFoundException(planId);
 
-            var feature = _repository.Feature.GetFeature(planId, id, trackChanges);
+            var feature = _repository.Feature.GetFeatureAsync(planId, id, trackChanges);
 
             if (feature is null)
                 throw new FeatureNotFoundException(id);
@@ -53,7 +53,7 @@ namespace Service
             var plan = _repository.Plan.GetPlanAsync(hostId, planId, trackChanges);
             if(plan is null) throw new PlanNotFoundException(planId);
 
-            var features = _repository.Feature.GetFeatures(planId, trackChanges);
+            var features = _repository.Feature.GetFeaturesAsync(planId, trackChanges);
 
             var featuresDto = _mapper.Map<IEnumerable<FeatureDto>>(features);
             return featuresDto;
@@ -84,7 +84,7 @@ namespace Service
             var plan = _repository.Plan.GetPlanAsync(hostId,planId, planTrackChanges);
             if (plan is null) throw new PlanNotFoundException(planId);
 
-            var featureEntity = _repository.Feature.GetFeature(planId,id, planTrackChanges);
+            var featureEntity = _repository.Feature.GetFeatureAsync(planId,id, planTrackChanges);
 
             if (featureEntity is null) throw new FeatureNotFoundException(id);
 
@@ -100,7 +100,7 @@ namespace Service
             var planEntity = _repository.Plan.GetPlanAsync(hostId,planId, planTrackChanges);
             if(planEntity is null) throw new PlanNotFoundException(planId);
 
-            var featureEntity = _repository.Feature.GetFeature(planId, id, featureTrackChanges);
+            var featureEntity = _repository.Feature.GetFeatureAsync(planId, id, featureTrackChanges);
             if (featureEntity is null) throw new FeatureNotFoundException(id);
 
             _mapper.Map(featureForUpdate, featureEntity);
@@ -115,7 +115,7 @@ namespace Service
             var planEntity = _repository.Plan.GetPlanAsync(hostId, planId, planTrackChanges);
             if (planEntity is null) throw new PlanNotFoundException(planId);
 
-            var featureEntity = _repository.Feature.GetFeature(planId, id, featureTrackChanges);
+            var featureEntity = _repository.Feature.GetFeatureAsync(planId, id, featureTrackChanges);
             if (featureEntity is null) throw new FeatureNotFoundException(id);
 
             var featureForUpdate = _mapper.Map<FeatureForUpdateDto>(featureEntity);

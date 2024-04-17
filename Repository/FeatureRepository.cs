@@ -1,10 +1,6 @@
 ﻿using Contracts;
 using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -15,14 +11,14 @@ namespace Repository
         }
 
 
-        public Feature GetFeature(Guid planId, Guid id, bool trackChanges)
-            => FindByCondition( f => f.PlanId.Equals(planId) && f.Id.Equals(id), trackChanges)
-            .SingleOrDefault();
+        public async Task<Feature > GetFeatureAsync(Guid planId, Guid id, bool trackChanges)
+            => await FindByCondition( f => f.PlanId.Equals(planId) && f.Id.Equals(id), trackChanges)
+            .SingleOrDefaultAsync();
 
-        public IEnumerable<Feature> GetFeatures(Guid planId, bool trackChanges)
-            => FindByCondition( f => f.PlanId.Equals(planId),trackChanges)
+        public async Task<IEnumerable<Feature>> GetFeaturesAsync(Guid planId, bool trackChanges)
+            => await FindByCondition( f => f.PlanId.Equals(planId),trackChanges)
             .OrderBy(f => f.DbCount)
-            .ToList();
+            .ToListAsync();
         public void CreateFeatureForPlan(Guid planId, Feature feature)
         {
             feature.PlanId = planId;

@@ -6,8 +6,8 @@ namespace Contracts
 {
     public interface IFeatureRepository
     {
-        IEnumerable<Feature> GetFeatures(Guid planId,bool trackChanges);
-        Feature GetFeature(Guid planId, Guid id,bool trackChanges);
+        Task<IEnumerable<Feature>> GetFeaturesAsync(Guid planId,bool trackChanges);
+        Task<Feature> GetFeatureAsync(Guid planId, Guid id,bool trackChanges);
         void CreateFeatureForPlan(Guid planId, Feature feature);
         void DeleteFeature(Feature feature);
     }
