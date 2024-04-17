@@ -22,61 +22,62 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetFeatures(Guid hostId, Guid planId)
+        public async Task<IActionResult> GetFeaturesAsync(Guid hostId, Guid planId)
         {
-            var features = _services.FeatureService.GetFeaturesAsync(hostId, planId, trackChanges: false);
+            var features = await _services.FeatureService.GetFeaturesAsync(hostId, planId, trackChanges: false);
 
             return Ok(features);
         }
 
         [HttpGet("{id:guid}", Name = "GetFeatureForPlan")]
-        public IActionResult GetFeature(Guid hostId, Guid planId, Guid id)
+        public async Task<IActionResult> GetFeatureAsync(Guid hostId, Guid planId, Guid id)
         {
-            var feature = _services.FeatureService.GetFeatureAsync(hostId, planId, id, trackChanges: false);
+            var feature = await _services.FeatureService.GetFeatureAsync(hostId, planId, id, trackChanges: false);
 
             return Ok(feature);
         }
 
         [HttpPost]
-        public IActionResult CreateFeatureForPlan(Guid hostId, Guid planId, [FromBody] FeatureForCreationDto featureForCreation)
+        public async Task<IActionResult> CreateFeatureForPlanAsync(Guid hostId, Guid planId, [FromBody] FeatureForCreationDto featureForCreation)
         {
             if (featureForCreation is null)
                 return BadRequest($"{nameof(featureForCreation)} object is null");
 
-            var newFeature = _services.FeatureService.CreateFeatureForPlanAsync(hostId, planId, featureForCreation, false, false);
+            var newFeature =
+                await _services.FeatureService.CreateFeatureForPlanAsync(hostId, planId, featureForCreation, false, false);
 
             return CreatedAtRoute("GetFeatureForPlan", new { hostId, planId, newFeature.Id }, newFeature);
         }
 
         [HttpDelete("{id:guid}")]
-        public IActionResult DeleteFeatureForPlan(Guid hostId, Guid planId, Guid id)
+        public async Task<IActionResult> DeleteFeatureForPlanAsync(Guid hostId, Guid planId, Guid id)
         {
-            _services.FeatureService.DeleteFeatureForPlanAsync(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false);
+            await _services.FeatureService.DeleteFeatureForPlanAsync(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false);
 
             return NoContent();
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, [FromBody] FeatureForUpdateDto featureForUpdate)
+        public async Task<IActionResult> UpdateFeatureForPlanAsync(Guid hostId, Guid planId, Guid id, [FromBody] FeatureForUpdateDto featureForUpdate)
         {
             if (featureForUpdate is null)
                 return BadRequest($"{nameof(featureForUpdate)} object is null");
 
-            _services.FeatureService.UpdateFeatureForPlanAsync(hostId, planId, id, featureForUpdate, false, false, true);
+            await _services.FeatureService.UpdateFeatureForPlanAsync(hostId, planId, id, featureForUpdate, false, false, true);
 
             return NoContent();
         }
 
         [HttpPatch("{id:guid}")]
-        public IActionResult PartiallyUpdateFeature(Guid hostId, Guid planId, Guid id, [FromBody] JsonPatchDocument<FeatureForUpdateDto> patchDoc)
+        public async Task<IActionResult> PartiallyUpdateFeatureAsync(Guid hostId, Guid planId, Guid id, [FromBody] JsonPatchDocument<FeatureForUpdateDto> patchDoc)
         {
             if (patchDoc is null)
                 return BadRequest($"{nameof(patchDoc)} object is null");
 
-            var result = _services.FeatureService.GetfeatureForPatchAsync(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false, featureTrackChanges: true);
+            var result = await _services.FeatureService.GetfeatureForPatchAsync(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false, featureTrackChanges: true);
 
             patchDoc.ApplyTo(result.featureForUpdate);
-            _services.FeatureService.SaveChangesForChangesAsync(result.featureForUpdate, result.featureEntity);
+            await _services.FeatureService.SaveChangesForChangesAsync(result.featureForUpdate, result.featureEntity);
 
             return NoContent();
         }
