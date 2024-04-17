@@ -6,18 +6,18 @@ namespace Service.Contracts
 {
     public interface IFeatureService
     {
-        IEnumerable<FeatureDto> GetFeatures(Guid hostId, Guid planId,bool trackChanges);
+        Task< IEnumerable<FeatureDto>> GetFeaturesAsync(Guid hostId, Guid planId,bool trackChanges);
 
-        FeatureDto GetFeature(Guid hostId, Guid planId, Guid id,bool trackChanges);
+        Task<FeatureDto> GetFeatureAsync(Guid hostId, Guid planId, Guid id,bool trackChanges);
 
-        FeatureDto CreateFeatureForPlan(Guid hostId,Guid PlanId, FeatureForCreationDto featureForCreation,bool hostTrackChanges, bool planTrackChanges);
+        Task<FeatureDto> CreateFeatureForPlanAsync(Guid hostId,Guid PlanId, FeatureForCreationDto featureForCreation,bool hostTrackChanges, bool planTrackChanges);
 
-        void DeleteFeatureForPlan(Guid hostId, Guid planId,Guid id,bool hostTrackChanges, bool planTrackChanges);
+        Task DeleteFeatureForPlanAsync(Guid hostId, Guid planId,Guid id,bool hostTrackChanges, bool planTrackChanges);
 
-        void UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate,bool hostTrackChanges,bool planTrackChanges,bool featureTrackChanges);
+        Task UpdateFeatureForPlanAsync(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate,bool hostTrackChanges,bool planTrackChanges,bool featureTrackChanges);
 
-        (FeatureForUpdateDto featureForUpdate, Feature featureEntity) GetfeatureForPatch(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges);
+        Task<(FeatureForUpdateDto featureForUpdate, Feature featureEntity)> GetfeatureForPatchAsync(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges);
 
-        void SaveChangesForChanges(FeatureForUpdateDto featureForUpdate,Feature featureEntity);
+        Task SaveChangesForChangesAsync(FeatureForUpdateDto featureForUpdate,Feature featureEntity);
     }
 }

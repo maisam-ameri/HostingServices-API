@@ -24,7 +24,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult GetFeatures(Guid hostId, Guid planId)
         {
-            var features = _services.FeatureService.GetFeatures(hostId, planId, trackChanges: false);
+            var features = _services.FeatureService.GetFeaturesAsync(hostId, planId, trackChanges: false);
 
             return Ok(features);
         }
@@ -32,7 +32,7 @@ namespace Presentation.Controllers
         [HttpGet("{id:guid}", Name = "GetFeatureForPlan")]
         public IActionResult GetFeature(Guid hostId, Guid planId, Guid id)
         {
-            var feature = _services.FeatureService.GetFeature(hostId, planId, id, trackChanges: false);
+            var feature = _services.FeatureService.GetFeatureAsync(hostId, planId, id, trackChanges: false);
 
             return Ok(feature);
         }
@@ -43,7 +43,7 @@ namespace Presentation.Controllers
             if (featureForCreation is null)
                 return BadRequest($"{nameof(featureForCreation)} object is null");
 
-            var newFeature = _services.FeatureService.CreateFeatureForPlan(hostId, planId, featureForCreation, false, false);
+            var newFeature = _services.FeatureService.CreateFeatureForPlanAsync(hostId, planId, featureForCreation, false, false);
 
             return CreatedAtRoute("GetFeatureForPlan", new { hostId, planId, newFeature.Id }, newFeature);
         }
@@ -51,7 +51,7 @@ namespace Presentation.Controllers
         [HttpDelete("{id:guid}")]
         public IActionResult DeleteFeatureForPlan(Guid hostId, Guid planId, Guid id)
         {
-            _services.FeatureService.DeleteFeatureForPlan(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false);
+            _services.FeatureService.DeleteFeatureForPlanAsync(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false);
 
             return NoContent();
         }
@@ -62,7 +62,7 @@ namespace Presentation.Controllers
             if (featureForUpdate is null)
                 return BadRequest($"{nameof(featureForUpdate)} object is null");
 
-            _services.FeatureService.UpdateFeatureForPlan(hostId, planId, id, featureForUpdate, false, false, true);
+            _services.FeatureService.UpdateFeatureForPlanAsync(hostId, planId, id, featureForUpdate, false, false, true);
 
             return NoContent();
         }
@@ -73,10 +73,10 @@ namespace Presentation.Controllers
             if (patchDoc is null)
                 return BadRequest($"{nameof(patchDoc)} object is null");
 
-            var result = _services.FeatureService.GetfeatureForPatch(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false, featureTrackChanges: true);
+            var result = _services.FeatureService.GetfeatureForPatchAsync(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false, featureTrackChanges: true);
 
             patchDoc.ApplyTo(result.featureForUpdate);
-            _services.FeatureService.SaveChangesForChanges(result.featureForUpdate, result.featureEntity);
+            _services.FeatureService.SaveChangesForChangesAsync(result.featureForUpdate, result.featureEntity);
 
             return NoContent();
         }
