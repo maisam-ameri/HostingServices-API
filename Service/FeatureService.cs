@@ -29,7 +29,7 @@ namespace Service
 
         public FeatureDto GetFeature(Guid hostId, Guid planId, Guid id, bool trackChanges)
         {
-            var host = _repository.Host.GetHost(hostId, trackChanges);
+            var host = _repository.Host.GetHostAsync(hostId, trackChanges);
             if (host is null) throw new HostNotFoundException(hostId);
 
             var plan = _repository.Plan.GetPlan(hostId, planId, trackChanges);
@@ -47,7 +47,7 @@ namespace Service
 
         public IEnumerable<FeatureDto> GetFeatures(Guid hostId, Guid planId,bool trackChanges)
         {
-            var host = _repository.Host.GetHost(hostId, trackChanges);
+            var host = _repository.Host.GetHostAsync(hostId, trackChanges);
             if (host is null) throw new HostNotFoundException(hostId);
 
             var plan = _repository.Plan.GetPlan(hostId, planId, trackChanges);
@@ -61,7 +61,7 @@ namespace Service
 
         public FeatureDto CreateFeatureForPlan(Guid hostId, Guid PlanId, FeatureForCreationDto featureForCreation, bool hostTrackChanges, bool planTrackChanges)
         {
-            var host = _repository.Host.GetHost(hostId, hostTrackChanges);
+            var host = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if(host is null) throw new HostNotFoundException(hostId);
 
             var plan = _repository.Plan.GetPlan(hostId, PlanId, planTrackChanges);
@@ -78,7 +78,7 @@ namespace Service
 
         public void DeleteFeatureForPlan(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges)
         {
-            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if(hostEntity is null) throw new HostNotFoundException(hostId);
 
             var plan = _repository.Plan.GetPlan(hostId,planId, planTrackChanges);
@@ -94,7 +94,7 @@ namespace Service
 
         public void UpdateFeatureForPlan(Guid hostId, Guid planId, Guid id, FeatureForUpdateDto featureForUpdate, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges)
         {
-            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             var planEntity = _repository.Plan.GetPlan(hostId,planId, planTrackChanges);
@@ -109,7 +109,7 @@ namespace Service
 
         public (FeatureForUpdateDto featureForUpdate, Feature featureEntity) GetfeatureForPatch(Guid hostId, Guid planId, Guid id, bool hostTrackChanges, bool planTrackChanges, bool featureTrackChanges)
         {
-            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             var planEntity = _repository.Plan.GetPlan(hostId, planId, planTrackChanges);

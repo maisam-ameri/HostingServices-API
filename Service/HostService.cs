@@ -24,7 +24,7 @@ namespace Service
         public async Task<IEnumerable<HostDto>> GetAllHosts(bool trackChanges)
         {
 
-            var hosts = await _repository.Host.GetAllHosts(trackChanges);
+            var hosts = await _repository.Host.GetAllHostsAsync(trackChanges);
             var hostsDto = _mapper.Map<IEnumerable<HostDto>>(hosts);
 
             return hostsDto;
@@ -32,7 +32,7 @@ namespace Service
 
         public async Task<HostDto> GetHost(Guid hostId, bool trackChanges)
         {
-            var host = await _repository.Host.GetHost(hostId, trackChanges);
+            var host = await _repository.Host.GetHostAsync(hostId, trackChanges);
 
             if (host == null)
                 throw new HostNotFoundException(hostId);
@@ -55,7 +55,7 @@ namespace Service
 
         public async Task DeleteHost(Guid hostId, bool trackChanges)
         {
-            var hostEntity = await _repository.Host.GetHost(hostId, trackChanges);
+            var hostEntity = await _repository.Host.GetHostAsync(hostId, trackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             _repository.Host.DeleteHost(hostEntity);
@@ -64,7 +64,7 @@ namespace Service
 
         public async Task UpdateHost(Guid hostId, HostForUpdateDto hostForUpdate, bool trackChanges)
         {
-            var hostEntity = await _repository.Host.GetHost(hostId, trackChanges);
+            var hostEntity = await _repository.Host.GetHostAsync(hostId, trackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             _mapper.Map(hostForUpdate, hostEntity);

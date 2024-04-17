@@ -28,7 +28,7 @@ namespace Service
 
         public IEnumerable<PlanDto> GetPlans(Guid hostId, bool trackChanges)
         {
-            var host = _repository.Host.GetHost(hostId, trackChanges);
+            var host = _repository.Host.GetHostAsync(hostId, trackChanges);
             if (host == null)
                 throw new HostNotFoundException(hostId);
 
@@ -43,7 +43,7 @@ namespace Service
         }
         public PlanDto GetPlan(Guid hostId, Guid id, bool trackChanges)
         {
-            var host = _repository.Host.GetHost(hostId, trackChanges);
+            var host = _repository.Host.GetHostAsync(hostId, trackChanges);
             if(host == null)
                 throw new HostNotFoundException(hostId);
 
@@ -57,7 +57,7 @@ namespace Service
 
         public PlanDto CreatePlanForHost(Guid hostId, PlanForCreationDto planForCreation, bool trackChanges)
         {
-            var host = _repository.Host.GetHost(hostId, trackChanges);
+            var host = _repository.Host.GetHostAsync(hostId, trackChanges);
             if(host is null) throw new HostNotFoundException(hostId);
 
             var planEntity = _mapper.Map<Plan>(planForCreation);
@@ -72,7 +72,7 @@ namespace Service
 
         public void DeletePlanForHost(Guid hostId, Guid id, bool hostTrackChanges,bool planTrackChanges)
         {
-            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if(hostEntity is null) throw new HostNotFoundException(hostId);
 
             var planEntity = _repository.Plan.GetPlan(hostId, id, planTrackChanges);
@@ -84,7 +84,7 @@ namespace Service
 
         public void UpdatePlanForHost(Guid hostId, Guid id, PlanForUpdateDto planForUpdate, bool hostTrackChanges, bool planTrackChanges)
         {
-            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             var planEntity = _repository.Plan.GetPlan(hostId, id, planTrackChanges);
@@ -96,7 +96,7 @@ namespace Service
 
         public (PlanForUpdateDto planForUpdate, Plan planEntity) GetPlanForPatch(Guid hostId, Guid id, bool hostTrackChanges, bool planTrackChanges)
         {
-            var hostEntity = _repository.Host.GetHost(hostId, hostTrackChanges);
+            var hostEntity = _repository.Host.GetHostAsync(hostId, hostTrackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             var planEntity = _repository.Plan.GetPlan(hostId, id, planTrackChanges);

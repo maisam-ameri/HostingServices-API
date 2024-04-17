@@ -12,11 +12,11 @@ namespace Repository
         }
 
 
-        public async Task<IEnumerable<Host>> GetAllHosts(bool trackChanges) =>await FindAll(trackChanges)
+        public async Task<IEnumerable<Host>> GetAllHostsAsync(bool trackChanges) =>await FindAll(trackChanges)
             .OrderBy(x => x.Name)
             .ToListAsync();
 
-        public async Task<Host> GetHost(Guid hostId, bool trackChanges) => 
+        public async Task<Host> GetHostAsync(Guid hostId, bool trackChanges) => 
             await FindByCondition( h => h.Id.Equals(hostId),trackChanges)
             .SingleOrDefaultAsync();
 
