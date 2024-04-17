@@ -1,10 +1,7 @@
 ﻿using Contracts;
 using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Repository
 {
@@ -15,14 +12,13 @@ namespace Repository
         }
 
 
-        public IEnumerable<Host> GetAllHosts(bool trackChanges) =>
-            FindAll(trackChanges)
+        public async Task<IEnumerable<Host>> GetAllHosts(bool trackChanges) =>await FindAll(trackChanges)
             .OrderBy(x => x.Name)
-            .ToList();
+            .ToListAsync();
 
-        public Host GetHost(Guid hostId, bool trackChanges) =>
-            FindByCondition( h => h.Id.Equals(hostId),trackChanges)
-            .SingleOrDefault();
+        public async Task<Host> GetHost(Guid hostId, bool trackChanges) => 
+            await FindByCondition( h => h.Id.Equals(hostId),trackChanges)
+            .SingleOrDefaultAsync();
 
         public void CreateHost(Host host)
             => Create(host);
