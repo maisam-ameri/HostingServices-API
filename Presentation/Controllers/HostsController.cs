@@ -21,22 +21,22 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllHosts()
+        public async Task<IActionResult> GetAllHosts()
         {
-            var services = _services.HostService.GetAllHosts(trackChanges: false);
+            var services = await _services.HostService.GetAllHosts(trackChanges: false);
 
             return Ok(services);
         }
 
         [HttpGet("{id:guid}", Name = "HostById")]
-        public IActionResult GetHost(Guid id)
+        public async Task<IActionResult> GetHost(Guid id)
         {
-            var host = _services.HostService.GetHost(id, false);
+            var host = await _services.HostService.GetHost(id, false);
             return Ok(host);
         }
 
         [HttpPost]
-        public IActionResult CreateHost([FromBody] HostForCreationDto hostForCreation)
+        public async Task<IActionResult> CreateHost([FromBody] HostForCreationDto hostForCreation)
         {
             if (hostForCreation is null)
                 return BadRequest($"{nameof(hostForCreation)} object is null");
@@ -44,20 +44,20 @@ namespace Presentation.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            var newHost = _services.HostService.CreateHost(hostForCreation);
+            var newHost = await _services.HostService.CreateHost(hostForCreation);
 
             return CreatedAtRoute("HostById", new { id = newHost.Id }, newHost);
         }
 
         [HttpDelete("{id:guid}")]
-        public IActionResult DeleteHost(Guid id)
+        public async Task<IActionResult> DeleteHost(Guid id)
         {
-            _services.HostService.DeleteHost(id, false);
+            await _services.HostService.DeleteHost(id, false);
             return NoContent();
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateHost(Guid id, [FromBody] HostForUpdateDto hostForUpdate)
+        public async Task<IActionResult> UpdateHost(Guid id, [FromBody] HostForUpdateDto hostForUpdate)
         {
             if (hostForUpdate is null)
                 return BadRequest($"{nameof(hostForUpdate)} object is null");
@@ -65,7 +65,7 @@ namespace Presentation.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            _services.HostService.UpdateHost(id, hostForUpdate, true);
+            await _services.HostService.UpdateHost(id, hostForUpdate, true);
 
             return NoContent();
         }
