@@ -21,7 +21,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllHosts()
+        public async Task<IActionResult> GetAllHostsAsync()
         {
             var services = await _services.HostService.GetAllHostsAsync(trackChanges: false);
 
@@ -29,14 +29,14 @@ namespace Presentation.Controllers
         }
 
         [HttpGet("{id:guid}", Name = "HostById")]
-        public async Task<IActionResult> GetHost(Guid id)
+        public async Task<IActionResult> GetHostAsync(Guid id)
         {
             var host = await _services.HostService.GetHostAsync(id, false);
             return Ok(host);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateHost([FromBody] HostForCreationDto hostForCreation)
+        public async Task<IActionResult> CreateHostAsync([FromBody] HostForCreationDto hostForCreation)
         {
             if (hostForCreation is null)
                 return BadRequest($"{nameof(hostForCreation)} object is null");
@@ -50,14 +50,14 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> DeleteHost(Guid id)
+        public async Task<IActionResult> DeleteHostAsync(Guid id)
         {
             await _services.HostService.DeleteHostAsync(id, false);
             return NoContent();
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateHost(Guid id, [FromBody] HostForUpdateDto hostForUpdate)
+        public async Task<IActionResult> UpdateHostAsync(Guid id, [FromBody] HostForUpdateDto hostForUpdate)
         {
             if (hostForUpdate is null)
                 return BadRequest($"{nameof(hostForUpdate)} object is null");
