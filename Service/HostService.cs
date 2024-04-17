@@ -21,18 +21,18 @@ namespace Service
         }
 
 
-        public IEnumerable<HostDto> GetAllHosts(bool trackChanges)
+        public async Task<IEnumerable<HostDto>> GetAllHosts(bool trackChanges)
         {
 
-            var hosts = _repository.Host.GetAllHosts(trackChanges);
+            var hosts = await _repository.Host.GetAllHosts(trackChanges);
             var hostsDto = _mapper.Map<IEnumerable<HostDto>>(hosts);
 
             return hostsDto;
         }
 
-        public HostDto GetHost(Guid hostId, bool trackChanges)
+        public async Task<HostDto> GetHost(Guid hostId, bool trackChanges)
         {
-            var host = _repository.Host.GetHost(hostId, trackChanges);
+            var host = await _repository.Host.GetHost(hostId, trackChanges);
 
             if (host == null)
                 throw new HostNotFoundException(hostId);
@@ -41,34 +41,34 @@ namespace Service
             return hostDto;
 
         }
-        public HostDto CreateHost(HostForCreationDto hostForCreationDto)
+        public async Task<HostDto> CreateHost(HostForCreationDto hostForCreationDto)
         {
             var hostEntity = _mapper.Map<Host>(hostForCreationDto);
             
             _repository.Host.CreateHost(hostEntity);
-            _repository.SaveAsync();
+            await _repository.SaveAsync();
 
             var hostDto = _mapper.Map<HostDto>(hostEntity);
 
             return hostDto;
         }
 
-        public void DeleteHost(Guid hostId, bool trackChanges)
+        public async Task DeleteHost(Guid hostId, bool trackChanges)
         {
-            var hostEntity = _repository.Host.GetHost(hostId, trackChanges);
+            var hostEntity = await _repository.Host.GetHost(hostId, trackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             _repository.Host.DeleteHost(hostEntity);
-            _repository.SaveAsync();
+            await _repository.SaveAsync();
         }
 
-        public void UpdateHost(Guid hostId, HostForUpdateDto hostForUpdate, bool trackChanges)
+        public async Task UpdateHost(Guid hostId, HostForUpdateDto hostForUpdate, bool trackChanges)
         {
-            var hostEntity = _repository.Host.GetHost(hostId, trackChanges);
+            var hostEntity = await _repository.Host.GetHost(hostId, trackChanges);
             if (hostEntity is null) throw new HostNotFoundException(hostId);
 
             _mapper.Map(hostForUpdate, hostEntity);
-            _repository.SaveAsync();
+            await _repository.SaveAsync();
         }
     }
 }
