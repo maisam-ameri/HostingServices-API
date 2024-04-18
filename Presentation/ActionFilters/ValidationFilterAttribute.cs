@@ -4,33 +4,34 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.ActionFilters
 {
-    public class ValidationFilterAttribute
+    public class ValidationFilterAttribute:IActionFilter
     {
         public ValidationFilterAttribute()
         {
         }
-        public void OnActionExecuted(ActionExecutedContext context)
+        public void OnActionExecuting(ActionExecutingContext context)
         {
+
             var action = context.RouteData.Values["action"];
             var controller = context.RouteData.Values["controller"];
 
-            var param = context.ActionDescriptor.Parameters.SingleOrDefault(p => p.Name.Contains("Dto"));
+            var param = context.ActionArguments.SingleOrDefault(a => a.Value.ToString().Contains("Dto")).Value;
 
             if (param is null)
             {
-
-                context.Result = new BadRequestObjectResult($"{param} object is null. Controller: {controller} Action{action}");
-
+                context.Result = new BadRequestObjectResult($"Object is null. Controller:{controller}, action: {action}");
                 return;
             }
 
             if (!context.ModelState.IsValid)
+            {
                 context.Result = new UnprocessableEntityObjectResult(context.ModelState);
-
+            }
         }
 
-        public void OnActionExecuting(ActionExecutingContext context)
+        public void OnActionExecuted(ActionExecutedContext context)
         {
+
         }
     }
 }
