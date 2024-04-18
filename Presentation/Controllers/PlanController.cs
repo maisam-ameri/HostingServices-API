@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -37,14 +38,9 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreatePlanForHostAsync(Guid hostId, [FromBody] PlanForCreationDto planForCreation )
         {
-            if (planForCreation is null)
-                return BadRequest($"{nameof(planForCreation)} object is null");
-
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
-
             var newPlan = await _service.PlanService.CreatePlanForHostAsync(hostId, planForCreation, false);
 
             return CreatedAtRoute("GetPlanForHost", new { hostId, newPlan.id }, newPlan);
@@ -59,13 +55,9 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdatePlanForHostAsync(Guid hostId,Guid id, [FromBody] PlanForUpdateDto planForUpdate)
         {
-            if (planForUpdate is null)
-                return BadRequest($"{nameof(planForUpdate)} object is null");
-
-            if(!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
 
             await _service.PlanService.UpdatePlanForHostAsync(hostId, id, planForUpdate,hostTrackChanges:false ,planTrackChanges: true);
 
