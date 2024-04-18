@@ -32,12 +32,9 @@ namespace Service
 
         public async Task<HostDto> GetHostAsync(Guid hostId, bool trackChanges)
         {
-            var host = await _repository.Host.GetHostAsync(hostId, trackChanges);
+            var hostEntity = await GetHostAndCheckIfItExists(hostId, trackChanges);
 
-            if (host == null)
-                throw new HostNotFoundException(hostId);
-
-            var hostDto = _mapper.Map<HostDto>(host);
+            var hostDto = _mapper.Map<HostDto>(hostEntity);
             return hostDto;
 
         }
@@ -55,8 +52,7 @@ namespace Service
 
         public async Task DeleteHostAsync(Guid hostId, bool trackChanges)
         {
-            var hostEntity = await _repository.Host.GetHostAsync(hostId, trackChanges);
-            if (hostEntity is null) throw new HostNotFoundException(hostId);
+            var hostEntity = await GetHostAndCheckIfItExists(hostId, trackChanges);
 
             _repository.Host.DeleteHost(hostEntity);
             await _repository.SaveAsync();
@@ -64,11 +60,20 @@ namespace Service
 
         public async Task UpdateHostAsync(Guid hostId, HostForUpdateDto hostForUpdate, bool trackChanges)
         {
-            var hostEntity = await _repository.Host.GetHostAsync(hostId, trackChanges);
-            if (hostEntity is null) throw new HostNotFoundException(hostId);
+            var hostEntity = await GetHostAndCheckIfItExists(hostId, trackChanges);
 
             _mapper.Map(hostForUpdate, hostEntity);
             await _repository.SaveAsync();
+        }
+
+        public async Task<Host> GetHostAndCheckIfItExists(Guid id,bool trackChanges)
+        {
+            var host = await _repository.Host.GetHostAsync(id, trackChanges);
+
+            if (host == null)
+                throw new HostNotFoundException(id);
+
+            return host;
         }
     }
 }
