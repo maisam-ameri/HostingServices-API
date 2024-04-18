@@ -1,4 +1,5 @@
 using Contracts;
+using Host_Service.ActionFilters;
 using Host_Service.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,7 @@ builder.Services.AddControllers(config =>
 })
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<ValidationFilterAttribute>();
 
 var app = builder.Build();
 
