@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -38,11 +39,9 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateFeatureForPlanAsync(Guid hostId, Guid planId, [FromBody] FeatureForCreationDto featureForCreation)
         {
-            if (featureForCreation is null)
-                return BadRequest($"{nameof(featureForCreation)} object is null");
-
             var newFeature =
                 await _services.FeatureService.CreateFeatureForPlanAsync(hostId, planId, featureForCreation, false, false);
 
@@ -58,11 +57,9 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateFeatureForPlanAsync(Guid hostId, Guid planId, Guid id, [FromBody] FeatureForUpdateDto featureForUpdate)
         {
-            if (featureForUpdate is null)
-                return BadRequest($"{nameof(featureForUpdate)} object is null");
-
             await _services.FeatureService.UpdateFeatureForPlanAsync(hostId, planId, id, featureForUpdate, false, false, true);
 
             return NoContent();
@@ -77,6 +74,11 @@ namespace Presentation.Controllers
             var result = await _services.FeatureService.GetfeatureForPatchAsync(hostId, planId, id, hostTrackChanges: false, planTrackChanges: false, featureTrackChanges: true);
 
             patchDoc.ApplyTo(result.featureForUpdate);
+            TryValidateModel(result.featureForUpdate);
+
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
             await _services.FeatureService.SaveChangesForChangesAsync(result.featureForUpdate, result.featureEntity);
 
             return NoContent();
