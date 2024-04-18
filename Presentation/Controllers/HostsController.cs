@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Presentation.Controllers
 {
@@ -36,13 +33,14 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateHostAsync([FromBody] HostForCreationDto hostForCreation)
         {
-            if (hostForCreation is null)
-                return BadRequest($"{nameof(hostForCreation)} object is null");
+            //if (hostForCreation is null)
+            //    return BadRequest($"{nameof(hostForCreation)} object is null");
 
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
+            //if (!ModelState.IsValid)
+            //    return UnprocessableEntity(ModelState);
 
             var newHost = await _services.HostService.CreateHostAsync(hostForCreation);
 
@@ -57,13 +55,14 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateHostAsync(Guid id, [FromBody] HostForUpdateDto hostForUpdate)
         {
-            if (hostForUpdate is null)
-                return BadRequest($"{nameof(hostForUpdate)} object is null");
+            //if (hostForUpdate is null)
+            //    return BadRequest($"{nameof(hostForUpdate)} object is null");
 
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
+            //if (!ModelState.IsValid)
+            //    return UnprocessableEntity(ModelState);
 
             await _services.HostService.UpdateHostAsync(id, hostForUpdate, true);
 
