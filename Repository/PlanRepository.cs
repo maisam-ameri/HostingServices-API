@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,10 @@ namespace Repository
         }
 
 
-        public async Task<IEnumerable<Plan>> GetPlansAsync(Guid hostId, bool trackChanges) => await FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
-            .OrderBy( p => p.Name)
+        public async Task<IEnumerable<Plan>> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges) => await FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
+            .OrderBy(p => p.Name)
+            .Skip((planParameters.PageNumber - 1) * planParameters.PageSize)
+            .Take(planParameters.PageSize)
             .ToListAsync();
 
         public async Task<Plan> GetPlanAsync(Guid hostId, Guid id, bool trackChanges) => await FindByCondition(p => p.HostId.Equals(hostId) && p.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
