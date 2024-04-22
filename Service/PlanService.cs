@@ -4,6 +4,7 @@ using Entities;
 using Entities.Exceptions;
 using Service.Contracts;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,14 @@ namespace Service
         }
 
 
-        public async Task<IEnumerable<PlanDto>> GetPlansAsync(Guid hostId, bool trackChanges)
+        public async Task<IEnumerable<PlanDto>> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges)
         {
             var host = await _repository.Host.GetHostAsync(hostId, trackChanges);
             if (host == null)
                 throw new HostNotFoundException(hostId);
 
-            var plans = await _repository.Plan.GetPlansAsync(hostId, trackChanges);
-            
+            var plans = await _repository.Plan.GetPlansAsync(hostId, planParameters, trackChanges);
+
 
             var plansDto = _mapper.Map<IEnumerable<PlanDto>>(plans);
             return plansDto;
@@ -49,14 +50,14 @@ namespace Service
             return planDto;
         }
 
-        public async Task <PlanDto> CreatePlanForHostAsync(Guid hostId, PlanForCreationDto planForCreation, bool trackChanges)
+        public async Task<PlanDto> CreatePlanForHostAsync(Guid hostId, PlanForCreationDto planForCreation, bool trackChanges)
         {
             await CheckIfHostExists(hostId, trackChanges);
 
             var planEntity = _mapper.Map<Plan>(planForCreation);
 
             _repository.Plan.CreatePlanForHost(hostId, planEntity);
-           await _repository.SaveAsync();
+            await _repository.SaveAsync();
 
             var planDto = _mapper.Map<PlanDto>(planEntity);
 
@@ -83,7 +84,7 @@ namespace Service
             await _repository.SaveAsync();
         }
 
-        public  async Task<(PlanForUpdateDto planForUpdate, Plan planEntity)> GetPlanForPatchAsync(Guid hostId, Guid id, bool hostTrackChanges, bool planTrackChanges)
+        public async Task<(PlanForUpdateDto planForUpdate, Plan planEntity)> GetPlanForPatchAsync(Guid hostId, Guid id, bool hostTrackChanges, bool planTrackChanges)
         {
             await CheckIfHostExists(hostId, hostTrackChanges);
 
@@ -112,7 +113,7 @@ namespace Service
 
         public async Task<Plan> GetPlanAndCheckIfItExists(Guid hostId, Guid id, bool trackChanges)
         {
-            var planEntity = await _repository.Plan.GetPlanAsync(hostId,id, trackChanges);
+            var planEntity = await _repository.Plan.GetPlanAsync(hostId, id, trackChanges);
 
             if (planEntity is null)
                 throw new PlanNotFoundException(id);
