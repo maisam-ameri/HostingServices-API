@@ -23,7 +23,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPlansForHostAsync(Guid hostId, [FromQuery] PlanParameters planParameters)
         {
-            var plans = await _service.PlanService.GetPlansAsync(hostId,false);
+            var plans = await _service.PlanService.GetPlansAsync(hostId,planParameters,false);
             return Ok(plans);
         }
 
