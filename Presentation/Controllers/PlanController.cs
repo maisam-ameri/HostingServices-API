@@ -3,11 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shared.RequestFeatures;
+
 
 namespace Presentation.Controllers
 {
@@ -24,7 +21,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPlansForHostAsync(Guid hostId)
+        public async Task<IActionResult> GetPlansForHostAsync(Guid hostId, [FromQuery] PlanParameters planParameters)
         {
             var plans = await _service.PlanService.GetPlansAsync(hostId,false);
             return Ok(plans);
