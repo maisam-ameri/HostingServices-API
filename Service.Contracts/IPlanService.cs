@@ -8,7 +8,7 @@ namespace Service.Contracts
 {
     public interface IPlanService
     {
-        Task<IEnumerable<PlanDto>> GetPlansAsync(Guid hostId,PlanParameters planParameters, bool trackChanges);
+        Task<(IEnumerable<PlanDto> plans,MetaData metaData)> GetPlansAsync(Guid hostId,PlanParameters planParameters, bool trackChanges);
         Task<PlanDto> GetPlanAsync(Guid hostId,Guid id,bool trackChanges);
         Task<PlanDto> CreatePlanForHostAsync(Guid hostId,PlanForCreationDto planForCreation,bool trackChanges);
 
