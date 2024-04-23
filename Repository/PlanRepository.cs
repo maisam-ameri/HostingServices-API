@@ -17,11 +17,14 @@ namespace Repository
         }
 
 
-        public async Task<IEnumerable<Plan>> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges) => await FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
-            .OrderBy(p => p.Name)
-            .Skip((planParameters.PageNumber - 1) * planParameters.PageSize)
-            .Take(planParameters.PageSize)
-            .ToListAsync();
+        public async Task<PagedList<Plan>> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges)
+        {
+            var items = await FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
+                .OrderBy(p => p.Name)
+                .ToListAsync();
+
+            return PagedList<Plan>.ToPagedList(items, planParameters.PageNumber, planParameters.PageSize);
+        }
 
         public async Task<Plan> GetPlanAsync(Guid hostId, Guid id, bool trackChanges) => await FindByCondition(p => p.HostId.Equals(hostId) && p.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
 
