@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Specialized;
+
 namespace Shared.RequestFeatures
 {
     public class PagedList<T> : List<T>
@@ -26,7 +28,7 @@ namespace Shared.RequestFeatures
                 .Take(pageSize)
                 .ToList();
             
-            return new PagedList<T>(items,pageNumber, count, pageSize);
+            return new PagedList<T>(items,count, pageNumber, pageSize);
         }
     }
 }
