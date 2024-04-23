@@ -19,6 +19,7 @@ namespace Host_Service.Extensions
                     builder.AllowAnyOrigin();
                     builder.AllowAnyMethod();
                     builder.AllowAnyHeader();
+                    builder.WithExposedHeaders("X-Pagination");
                 });
             });
         }
