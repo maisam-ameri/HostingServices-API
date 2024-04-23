@@ -4,7 +4,7 @@ using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
-
+using System.Text.Json;
 
 namespace Presentation.Controllers
 {
@@ -23,8 +23,9 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPlansForHostAsync(Guid hostId, [FromQuery] PlanParameters planParameters)
         {
-            var plans = await _service.PlanService.GetPlansAsync(hostId,planParameters,false);
-            return Ok(plans);
+            var pagedResult = await _service.PlanService.GetPlansAsync(hostId,planParameters,false);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize( pagedResult.metaData));
+            return Ok(pagedResult.plans);
         }
 
         [HttpGet("{id:guid}",Name ="GetPlanForHost")]
