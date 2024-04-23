@@ -27,17 +27,18 @@ namespace Service
         }
 
 
-        public async Task<IEnumerable<PlanDto>> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges)
+        public async Task<(IEnumerable<PlanDto> plans, MetaData metaData)> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges)
         {
             var host = await _repository.Host.GetHostAsync(hostId, trackChanges);
             if (host == null)
                 throw new HostNotFoundException(hostId);
 
-            var plans = await _repository.Plan.GetPlansAsync(hostId, planParameters, trackChanges);
+            var planWithMetaData = await _repository.Plan.GetPlansAsync(hostId, planParameters, trackChanges);
 
 
-            var plansDto = _mapper.Map<IEnumerable<PlanDto>>(plans);
-            return plansDto;
+            var plansDto = _mapper.Map<IEnumerable<PlanDto>>(planWithMetaData);
+          
+            return (plans: plansDto,metaData: planWithMetaData.MetaData);
 
         }
         public async Task<PlanDto> GetPlanAsync(Guid hostId, Guid id, bool trackChanges)
