@@ -29,9 +29,10 @@ namespace Service
 
         public async Task<(IEnumerable<PlanDto> plans, MetaData metaData)> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges)
         {
-            var host = await _repository.Host.GetHostAsync(hostId, trackChanges);
-            if (host == null)
-                throw new HostNotFoundException(hostId);
+            if (!planParameters.ValidPriceRange)
+                throw new PriceRangeBadRequestException();
+
+            var host = await CheckIfHostExists(hostId, trackChanges);
 
             var planWithMetaData = await _repository.Plan.GetPlansAsync(hostId, planParameters, trackChanges);
 
@@ -41,6 +42,7 @@ namespace Service
             return (plans: plansDto,metaData: planWithMetaData.MetaData);
 
         }
+
         public async Task<PlanDto> GetPlanAsync(Guid hostId, Guid id, bool trackChanges)
         {
             await CheckIfHostExists(hostId, trackChanges);
