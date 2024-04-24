@@ -1,5 +1,6 @@
 ﻿
 using Entities;
+using Repository.Extensions.Utility;
 using Shared.RequestFeatures;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
@@ -27,27 +28,7 @@ namespace Repository.Extensions
             if (string.IsNullOrWhiteSpace(orderByQueryString))
                 return plans.OrderBy(p => p.Name);
 
-            var orderParams = orderByQueryString.Trim().Split(',');
-            var orderQueryBuilder = new StringBuilder();
-
-            var propertyInfo = typeof(Plan).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-            foreach (var param in orderParams)
-            {
-                if (string.IsNullOrWhiteSpace(param))
-                    continue;
-
-                var propertyFromQueryName = param.Split(" ")[0];
-                var objectProperty = propertyInfo.FirstOrDefault(p => p.Name.ToString().Equals(propertyFromQueryName, StringComparison.InvariantCultureIgnoreCase));
-
-                if (objectProperty is null) continue;
-
-                var direction = param.EndsWith("desc") ? "descending" : "ascending";
-
-                orderQueryBuilder.Append($"{objectProperty.Name.ToString()} {direction},");
-            }
-
-            var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
+            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Plan>(orderByQueryString);
 
             if (string.IsNullOrWhiteSpace(orderQuery)) 
                 return plans.OrderBy(p => p.Name);
