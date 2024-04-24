@@ -2,7 +2,7 @@
 using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
-
+using Shared.RequestFeatures;
 
 namespace Presentation.Controllers
 {
@@ -18,9 +18,9 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllHostsAsync()
+        public async Task<IActionResult> GetAllHostsAsync([FromQuery] HostParameters hostParameters)
         {
-            var services = await _services.HostService.GetAllHostsAsync(trackChanges: false);
+            var services = await _services.HostService.GetAllHostsAsync(hostParameters, trackChanges: false);
 
             return Ok(services);
         }
