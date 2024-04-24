@@ -4,6 +4,7 @@ using Entities;
 using Entities.Exceptions;
 using Service.Contracts;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 
 namespace Service
 {
@@ -21,10 +22,10 @@ namespace Service
         }
 
 
-        public async Task<IEnumerable<HostDto>> GetAllHostsAsync(bool trackChanges)
+        public async Task<IEnumerable<HostDto>> GetAllHostsAsync(HostParameters hostParameters, bool trackChanges)
         {
 
-            var hosts = await _repository.Host.GetAllHostsAsync(trackChanges);
+            var hosts = await _repository.Host.GetAllHostsAsync(hostParameters, trackChanges);
             var hostsDto = _mapper.Map<IEnumerable<HostDto>>(hosts);
 
             return hostsDto;
