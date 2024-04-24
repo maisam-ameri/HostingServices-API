@@ -3,6 +3,8 @@ namespace Shared.RequestFeatures
 {
     public class PlanParameters : RequestParameters
     {
+        public PlanParameters() => OrderBy = "name";
+
         public double MinPrice { get; set; }
         public double MaxPrice { get; set; } = double.MaxValue;
 
