@@ -1,12 +1,13 @@
 ﻿
 using Entities;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 
 namespace Service.Contracts
 {
     public interface IFeatureService
     {
-        Task< IEnumerable<FeatureDto>> GetFeaturesAsync(Guid hostId, Guid planId,bool trackChanges);
+        Task< IEnumerable<FeatureDto>> GetFeaturesAsync(Guid hostId, Guid planId,FeatureParameters featureParameters,bool trackChanges);
 
         Task<FeatureDto> GetFeatureAsync(Guid hostId, Guid planId, Guid id,bool trackChanges);
 

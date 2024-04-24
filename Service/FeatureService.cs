@@ -4,6 +4,7 @@ using Entities;
 using Entities.Exceptions;
 using Service.Contracts;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 using System.Numerics;
 
 
@@ -42,13 +43,13 @@ namespace Service
             return featureDto;
         }
 
-        public async Task<IEnumerable<FeatureDto>> GetFeaturesAsync(Guid hostId, Guid planId, bool trackChanges)
+        public async Task<IEnumerable<FeatureDto>> GetFeaturesAsync(Guid hostId, Guid planId, FeatureParameters featureParameters, bool trackChanges)
         {
             await CheckIfHostExists(hostId, trackChanges);
 
             await CheckIfPlanExists(hostId, planId, trackChanges);
 
-            var features = await _repository.Feature.GetFeaturesAsync(planId, trackChanges);
+            var features = await _repository.Feature.GetFeaturesAsync(planId, featureParameters, trackChanges);
 
             var featuresDto = _mapper.Map<IEnumerable<FeatureDto>>(features);
             return featuresDto;
