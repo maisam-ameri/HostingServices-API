@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,9 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetFeaturesAsync(Guid hostId, Guid planId)
+        public async Task<IActionResult> GetFeaturesAsync(Guid hostId, Guid planId, [FromQuery] FeatureParameters featureParameters)
         {
-            var features = await _services.FeatureService.GetFeaturesAsync(hostId, planId, trackChanges: false);
+            var features = await _services.FeatureService.GetFeaturesAsync(hostId, planId, featureParameters, trackChanges: false);
 
             return Ok(features);
         }
