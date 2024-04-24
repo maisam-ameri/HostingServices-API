@@ -19,7 +19,10 @@ namespace Repository
 
         public async Task<PagedList<Plan>> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges)
         {
-            var items = await FindByCondition(p => p.HostId.Equals(hostId), trackChanges)
+            var items = await FindByCondition(p => p.HostId.Equals(hostId)
+            && (p.Price >= planParameters.MinPrice
+                && p.Price <= planParameters.MaxPrice)
+                , trackChanges)
                 .OrderBy(p => p.Name)
                 .ToListAsync();
 
