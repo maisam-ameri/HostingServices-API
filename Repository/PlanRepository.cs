@@ -23,7 +23,7 @@ namespace Repository
             var items = await FindByCondition(p => p.HostId.Equals(hostId)
                 , trackChanges)
                 .FilterPlans(planParameters.MinPrice, planParameters.MaxPrice)
-
+                .Search(planParameters.SearchTerm)
                 .OrderBy(p => p.Name)
                 .ToListAsync();
 
