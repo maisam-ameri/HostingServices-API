@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Repository.Extensions;
 using Shared.RequestFeatures;
 
 namespace Repository
@@ -16,9 +17,10 @@ namespace Repository
             => await FindByCondition( f => f.PlanId.Equals(planId) && f.Id.Equals(id), trackChanges)
             .SingleOrDefaultAsync();
 
-        public async Task<IEnumerable<Feature>> GetFeaturesAsync(Guid planId,FeatureParameters featureParameters, bool trackChanges)
-            => await FindByCondition( f => f.PlanId.Equals(planId),trackChanges)
-            .OrderBy(f => f.DbCount)
+        public async Task<IEnumerable<Feature>> GetFeaturesAsync(Guid planId, FeatureParameters featureParameters, bool trackChanges)
+            => await FindByCondition(f => f.PlanId.Equals(planId), trackChanges)
+            .FilterFeatures(featureParameters.MinStorage, featureParameters.MaxStorage)
+            .Sort(featureParameters.OrderBy)
             .ToListAsync();
         public void CreateFeatureForPlan(Guid planId, Feature feature)
         {
