@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Repository.Extensions;
 using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,9 @@ namespace Repository
         public async Task<PagedList<Plan>> GetPlansAsync(Guid hostId, PlanParameters planParameters, bool trackChanges)
         {
             var items = await FindByCondition(p => p.HostId.Equals(hostId)
-            && (p.Price >= planParameters.MinPrice
-                && p.Price <= planParameters.MaxPrice)
                 , trackChanges)
+                .FilterPlans(planParameters.MinPrice, planParameters.MaxPrice)
+
                 .OrderBy(p => p.Name)
                 .ToListAsync();
 
