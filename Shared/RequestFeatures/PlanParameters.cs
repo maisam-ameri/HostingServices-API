@@ -8,5 +8,7 @@ namespace Shared.RequestFeatures
 
         public bool ValidPriceRange => 
             (MinPrice < MaxPrice) && (MinPrice >= 0);
+
+        public string? SearchTerm { get; set; }
     }
 }
