@@ -21,6 +21,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        [HttpHead]
         public async Task<IActionResult> GetPlansForHostAsync(Guid hostId, [FromQuery] PlanParameters planParameters)
         {
             var pagedResult = await _service.PlanService.GetPlansAsync(hostId,planParameters,false);
