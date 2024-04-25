@@ -14,8 +14,8 @@ namespace Presentation.Controllers
         public RootController(LinkGenerator linkGenerator) =>
             _linkGenerator = linkGenerator;
 
-        [HttpGet]
-        public IActionResult GetRoot([FromHeader] string mediaType)
+        [HttpGet(Name ="GetRoot")]
+        public IActionResult GetRoot([FromHeader(Name ="Accept")] string mediaType)
         {
             if (mediaType.Contains("application/vnd.mesism.apiroot"))
             {
@@ -23,19 +23,19 @@ namespace Presentation.Controllers
                 {
                     new Link
                     {
-                        Href = _linkGenerator.GetPathByName(HttpContext,nameof(GetRoot),new{ }),
+                        Href = _linkGenerator.GetUriByName(HttpContext,nameof(GetRoot),new{ }),
                         Rel = "self",
                         Method = "GET",
                     },
                     new Link
                     {
-                        Href = _linkGenerator.GetPathByName(HttpContext,"GetHosts",new{ }),
+                        Href = _linkGenerator.GetUriByName(HttpContext,"GetHosts",new{ }),
                         Rel = "hosts",
                         Method = "GET",
                     },
                     new Link
                     {
-                        Href = _linkGenerator.GetPathByName(HttpContext,"CreateHost",new{ }),
+                        Href = _linkGenerator.GetUriByName(HttpContext,"CreateHost",new{ }),
                         Rel = "create-host",
                         Method = "POST",
                     }
