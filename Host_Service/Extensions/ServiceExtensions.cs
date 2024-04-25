@@ -1,5 +1,7 @@
 ﻿using Contracts;
 using LoggerService;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Repository;
@@ -52,6 +54,19 @@ namespace Host_Service.Extensions
             services.AddDbContext<RepositoryContext>(opt =>
             {
                 opt.UseSqlServer(configuration.GetConnectionString("SqlConnection"));
+            });
+        }
+
+        public static void AddCustomMediaTypes(this IServiceCollection services)
+        {
+            services.Configure<MvcOptions>(config =>
+            {
+                var systemTextOutputFormatter = config.OutputFormatters.OfType<SystemTextJsonOutputFormatter>()?.FirstOrDefault();
+
+                if (systemTextOutputFormatter != null)
+                {
+                    systemTextOutputFormatter.SupportedMediaTypes.Add("application/vnd.mesism.apiroot+json");
+                }
             });
         }
     }
