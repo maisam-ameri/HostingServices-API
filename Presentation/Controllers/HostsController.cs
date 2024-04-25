@@ -17,7 +17,7 @@ namespace Presentation.Controllers
             _services = services;
         }
 
-        [HttpGet]
+        [HttpGet(Name ="GetHosts")]
         public async Task<IActionResult> GetAllHostsAsync([FromQuery] HostParameters hostParameters)
         {
             var services = await _services.HostService.GetAllHostsAsync(hostParameters, trackChanges: false);
@@ -32,7 +32,7 @@ namespace Presentation.Controllers
             return Ok(host);
         }
 
-        [HttpPost]
+        [HttpPost(Name ="CreateHost")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateHostAsync([FromBody] HostForCreationDto hostForCreation)
         {
