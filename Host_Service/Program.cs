@@ -32,6 +32,7 @@ builder.Services.AddControllers(config =>
     config.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
 })
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
+builder.Services.AddCustomMediaTypes();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<ValidationFilterAttribute>();
 
