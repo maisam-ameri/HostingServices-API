@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "yHCw/UdNWcm3XCTMYFBzWY9fp8FiKwHjvA6pODqT6Hjo3PJGT/G8TovNashTktRVNkItrwwsQ3BlhlcDDmPdzA==",
+  "dgSpecHash": "oJePKmGTGVo7mMfZkJ9sQ6vbbNd2ViVZxkZ+I03i2ggFk75QNA9OY8SW+ydlOyJmSFlqkj2akiPWB1y/4s/Wew==",
   "success": true,
   "projectFilePath": "D:\\Work\\Projects\\Web\\Host_Service\\Host_Service\\Host_Service.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\arena\\.nuget\\packages\\asp.versioning.abstractions\\7.0.0\\asp.versioning.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\arena\\.nuget\\packages\\asp.versioning.http\\7.1.0\\asp.versioning.http.7.1.0.nupkg.sha512",
+    "C:\\Users\\arena\\.nuget\\packages\\asp.versioning.mvc\\7.1.1\\asp.versioning.mvc.7.1.1.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
