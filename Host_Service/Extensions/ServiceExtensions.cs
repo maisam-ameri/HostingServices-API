@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Repository;
 using Service;
 using Service.Contracts;
@@ -67,6 +68,16 @@ namespace Host_Service.Extensions
                 {
                     systemTextOutputFormatter.SupportedMediaTypes.Add("application/vnd.mesism.apiroot+json");
                 }
+            });
+        }
+
+        public static void ConfigureVersioning(this IServiceCollection services)
+        {
+            services.AddApiVersioning(opt =>
+            {
+                opt.ReportApiVersions = true;
+                opt.AssumeDefaultVersionWhenUnspecified = true;
+                opt.DefaultApiVersion = new Asp.Versioning.ApiVersion(1, 0);
             });
         }
     }
