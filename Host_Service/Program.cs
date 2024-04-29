@@ -57,6 +57,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseCors("CorsPolicy");
 
 app.UseResponseCaching();
+app.UseHttpCacheHeaders();
 
 app.UseAuthorization();
 
