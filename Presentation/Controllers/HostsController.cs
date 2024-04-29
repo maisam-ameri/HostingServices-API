@@ -26,6 +26,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet("{id:guid}", Name = "HostById")]
+        [ResponseCache(Duration =60)]
         public async Task<IActionResult> GetHostAsync(Guid id)
         {
             var host = await _services.HostService.GetHostAsync(id, false);
