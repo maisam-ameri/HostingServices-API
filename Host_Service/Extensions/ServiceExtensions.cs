@@ -80,5 +80,10 @@ namespace Host_Service.Extensions
                 opt.DefaultApiVersion = new Asp.Versioning.ApiVersion(1, 0);
             });
         }
+
+        public static void ConfigureResponseCaching(this IServiceCollection services)
+        {
+            services.AddResponseCaching();
+        }
     }
 }

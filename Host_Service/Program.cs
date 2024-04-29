@@ -36,6 +36,7 @@ builder.Services.AddControllers(config =>
 builder.Services.AddCustomMediaTypes();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<ValidationFilterAttribute>();
+builder.Services.ConfigureResponseCaching();
 
 var app = builder.Build();
 
@@ -53,6 +54,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 app.UseCors("CorsPolicy");
+
+app.UseResponseCaching();
 
 app.UseAuthorization();
 
