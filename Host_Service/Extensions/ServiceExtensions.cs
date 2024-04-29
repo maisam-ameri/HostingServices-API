@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using AspNetCoreRateLimit;
+using Contracts;
 using LoggerService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -42,12 +43,12 @@ namespace Host_Service.Extensions
 
         public static void ConfigureRepositoryManager(this IServiceCollection services)
         {
-            services.AddScoped<IRepositoryManager,RepositoryManager>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
         }
 
         public static void ConfigureServiceManager(this IServiceCollection services)
         {
-            services.AddScoped<IServiceManager,ServiceManager>();
+            services.AddScoped<IServiceManager, ServiceManager>();
         }
 
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
@@ -95,8 +96,30 @@ namespace Host_Service.Extensions
             },
             (validationOpt) =>
             {
-                validationOpt.MustRevalidate = true; 
+                validationOpt.MustRevalidate = true;
             });
+        }
+
+        public static void ConfigureRateLimitingOptions(this IServiceCollection services)
+        {
+            var rateLimitRules = new List<RateLimitRule>()
+            {
+                new RateLimitRule
+                {
+                    Endpoint = "*",
+                     Limit = 3,
+                     Period = "5m"
+                }
+            };
+            services.Configure<IpRateLimitOptions>(opt => {
+                opt.GeneralRules =
+                rateLimitRules;
+            });
+            services.AddSingleton<IRateLimitCounterStore,
+            MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
         }
     }
 }

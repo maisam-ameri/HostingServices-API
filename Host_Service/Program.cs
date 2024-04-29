@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using Contracts;
 using Host_Service.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -39,6 +40,8 @@ builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.ConfigureResponseCaching();
 builder.Services.ConfigureHttpCacheHeaders();
 builder.Services.AddMemoryCache();
+builder.Services.ConfigureRateLimitingOptions();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -55,6 +58,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.All
 });
 
+app.UseIpRateLimiting();
 app.UseCors("CorsPolicy");
 
 app.UseResponseCaching();
