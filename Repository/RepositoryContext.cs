@@ -25,6 +25,7 @@ namespace Repository
             modelBuilder.ApplyConfiguration(new HostConfiguration());
             modelBuilder.ApplyConfiguration(new PlanConfiguration());
             modelBuilder.ApplyConfiguration(new FeatureConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
 
         public DbSet<Host>? Hosts { get; set; }
