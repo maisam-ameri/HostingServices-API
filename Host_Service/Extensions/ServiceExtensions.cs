@@ -2,15 +2,18 @@
 using Contracts;
 using Entities.Models;
 using LoggerService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.IdentityModel.Tokens;
 using Repository;
 using Service;
 using Service.Contracts;
+using System.Text;
 
 namespace Host_Service.Extensions
 {
@@ -113,7 +116,8 @@ namespace Host_Service.Extensions
                      Period = "5m"
                 }
             };
-            services.Configure<IpRateLimitOptions>(opt => {
+            services.Configure<IpRateLimitOptions>(opt =>
+            {
                 opt.GeneralRules =
                 rateLimitRules;
             });
@@ -138,6 +142,32 @@ namespace Host_Service.Extensions
             })
                 .AddEntityFrameworkStores<RepositoryContext>()
                 .AddDefaultTokenProviders();
+        }
+
+        public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            var secretKey = Environment.GetEnvironmentVariable("SECRET");
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = jwtSettings["validIssuer"],
+                    ValidAudience = jwtSettings["validAudience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+
+                };
+            });
         }
     }
 }
