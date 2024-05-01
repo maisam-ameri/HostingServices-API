@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -18,6 +19,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet(Name ="GetHosts")]
+        [Authorize]
         public async Task<IActionResult> GetAllHostsAsync([FromQuery] HostParameters hostParameters)
         {
             var services = await _services.HostService.GetAllHostsAsync(hostParameters, trackChanges: false);
