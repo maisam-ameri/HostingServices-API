@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gv629bt1Y8d2IY1in8OgBnrkbY6A/i6XpGDVuStY+SzDKfJW8uvP2hgUIaT0u4n1o2qFnuOWIEZNObnI+1URwA==",
+  "dgSpecHash": "bf6ziFCB7aEnJ4X1q533JduIQ/jWZ2UtDH9aDaVi+rwNIX9AEWOqR9ZURDB7OKImYZFtgUJl0fiKnEC4y3v87w==",
   "success": true,
   "projectFilePath": "D:\\Work\\Projects\\Web\\Host_Service\\Host_Service\\Host_Service.csproj",
   "expectedPackageFiles": [
@@ -16,6 +16,7 @@
     "C:\\Users\\arena\\.nuget\\packages\\marvin.cache.headers\\7.1.0\\marvin.cache.headers.7.1.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\arena\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.18\\microsoft.aspnetcore.authentication.jwtbearer.7.0.18.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.aspnetcore.authorization.policy\\2.2.0\\microsoft.aspnetcore.authorization.policy.2.2.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.0\\microsoft.aspnetcore.cryptography.internal.7.0.0.nupkg.sha512",
