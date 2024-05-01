@@ -1,6 +1,8 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 
 namespace Presentation.Controllers
 {
@@ -13,6 +15,24 @@ namespace Presentation.Controllers
         public AuthenticationController(IServiceManager service)
         {
             _service = service;
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> RegisterUser([FromBody] UserForRegisterationDto userForRegisteration)
+        {
+            var result =await _service.AuthenticationService.RegisterUser(userForRegisteration);
+
+            if (!result.Succeeded)
+            {
+                foreach(var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return BadRequest(ModelState);
+            }
+
+            return StatusCode(201);
         }
     }
 }
