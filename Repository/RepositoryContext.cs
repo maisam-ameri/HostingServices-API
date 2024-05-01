@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class RepositoryContext : IdentityDbContext
+    public class RepositoryContext : IdentityDbContext<User>
     {
         public RepositoryContext(DbContextOptions options) : base(options)
         {
