@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
+using Entities.Models;
 using Shared.DataTransferObjects;
 
 namespace Host_Service
@@ -19,6 +20,8 @@ namespace Host_Service
             CreateMap<Feature, FeatureDto>();
             CreateMap<FeatureForCreationDto, Feature>();
             CreateMap<FeatureForUpdateDto, Feature>().ReverseMap();
+
+            CreateMap<UserForRegisterationDto, User>();
         }
     }
 }
