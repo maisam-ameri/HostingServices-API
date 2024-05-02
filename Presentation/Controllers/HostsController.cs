@@ -19,7 +19,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet(Name ="GetHosts")]
-        [Authorize]
+        [Authorize(Roles ="adminstrator")]
         public async Task<IActionResult> GetAllHostsAsync([FromQuery] HostParameters hostParameters)
         {
             var services = await _services.HostService.GetAllHostsAsync(hostParameters, trackChanges: false);
