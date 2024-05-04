@@ -2,6 +2,7 @@
 using Contracts;
 using Entities;
 using Entities.Exceptions;
+using Entities.Responses;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
@@ -22,27 +23,31 @@ namespace Service
         }
 
 
-        public async Task<IEnumerable<HostDto>> GetAllHostsAsync(HostParameters hostParameters, bool trackChanges)
+        public async Task<ApiBaseResponse> GetAllHostsAsync(HostParameters hostParameters, bool trackChanges)
         {
 
             var hosts = await _repository.Host.GetAllHostsAsync(hostParameters, trackChanges);
             var hostsDto = _mapper.Map<IEnumerable<HostDto>>(hosts);
 
-            return hostsDto;
+            return new ApiOkResponse<IEnumerable<HostDto>>(hostsDto);
         }
 
-        public async Task<HostDto> GetHostAsync(Guid hostId, bool trackChanges)
+        public async Task<ApiBaseResponse> GetHostAsync(Guid hostId, bool trackChanges)
         {
             var hostEntity = await GetHostAndCheckIfItExists(hostId, trackChanges);
 
+            if(hostEntity is null)
+                return new HostNotFoundResponse(hostId);
+
             var hostDto = _mapper.Map<HostDto>(hostEntity);
-            return hostDto;
+
+            return new ApiOkResponse<HostDto>(hostDto);
 
         }
         public async Task<HostDto> CreateHostAsync(HostForCreationDto hostForCreationDto)
         {
             var hostEntity = _mapper.Map<Host>(hostForCreationDto);
-            
+
             _repository.Host.CreateHost(hostEntity);
             await _repository.SaveAsync();
 
@@ -67,7 +72,7 @@ namespace Service
             await _repository.SaveAsync();
         }
 
-        public async Task<Host> GetHostAndCheckIfItExists(Guid id,bool trackChanges)
+        public async Task<Host> GetHostAndCheckIfItExists(Guid id, bool trackChanges)
         {
             var host = await _repository.Host.GetHostAsync(id, trackChanges);
 
