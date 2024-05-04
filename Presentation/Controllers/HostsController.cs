@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Entities.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentation.ActionFilters;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -9,7 +11,7 @@ namespace Presentation.Controllers
 {
     [Route("api/hosts")]
     [ApiController]
-    public class HostsController : ControllerBase
+    public class HostsController : ApiBaseController
     {
         private IServiceManager _services;
 
@@ -22,16 +24,27 @@ namespace Presentation.Controllers
         [Authorize(Roles ="adminstrator")]
         public async Task<IActionResult> GetAllHostsAsync([FromQuery] HostParameters hostParameters)
         {
-            var services = await _services.HostService.GetAllHostsAsync(hostParameters, trackChanges: false);
+            var baseResult = await _services.HostService.GetAllHostsAsync(hostParameters, trackChanges: false);
 
-            return Ok(services);
+            if(!baseResult.Success)
+                return ProcessError(baseResult);
+
+            var hostes = ((ApiOkResponse<IEnumerable<HostDto>>)baseResult).Result;
+            
+            return Ok(hostes);
         }
 
         [HttpGet("{id:guid}", Name = "HostById")]
         //[ResponseCache(Duration =60)]
         public async Task<IActionResult> GetHostAsync(Guid id)
         {
-            var host = await _services.HostService.GetHostAsync(id, false);
+            var baseResult = await _services.HostService.GetHostAsync(id, false);
+
+            if (!baseResult.Success)
+                return ProcessError(baseResult);
+
+            var host = ((ApiOkResponse<HostDto>)baseResult).Result;
+
             return Ok(host);
         }
 
