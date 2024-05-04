@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vwTlRWUfUqi3QAzGXgO+ocQR4yLtO1jokQejCQHsPwDLJ9od0yf0VN3TlPozURMmcYA0CJMbCOndO9SyBRnCqQ==",
+  "dgSpecHash": "GDCvqIsc6ts0xUUH0+vhilFDXhBS90/AZc9fkOYQGVbyZ0OZSYyLyvfOwvuwpVj4xy1BlDtHrF53NBm1dlKcsA==",
   "success": true,
   "projectFilePath": "D:\\Work\\Projects\\Web\\Host_Service\\Host_Service\\Host_Service.csproj",
   "expectedPackageFiles": [
@@ -49,7 +49,8 @@
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.17\\microsoft.entityframeworkcore.tools.7.0.17.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
-    "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.configuration.binder\\8.0.1\\microsoft.extensions.configuration.binder.8.0.1.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.dependencymodel\\7.0.0\\microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512",
@@ -61,7 +62,7 @@
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.objectpool\\2.2.0\\microsoft.extensions.objectpool.2.2.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
-    "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\arena\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.identity.client\\4.56.0\\microsoft.identity.client.4.56.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.identity.client.extensions.msal\\4.56.0\\microsoft.identity.client.extensions.msal.4.56.0.nupkg.sha512",
     "C:\\Users\\arena\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.5.1\\microsoft.identitymodel.abstractions.7.5.1.nupkg.sha512",

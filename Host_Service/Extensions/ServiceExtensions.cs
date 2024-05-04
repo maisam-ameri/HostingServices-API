@@ -1,5 +1,6 @@
 ﻿using AspNetCoreRateLimit;
 using Contracts;
+using Entities;
 using Entities.Models;
 using LoggerService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -146,7 +147,9 @@ namespace Host_Service.Extensions
 
         public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
         {
-            var jwtSettings = configuration.GetSection("JwtSettings");
+            var jwtConfiguration = new JwtConfiguration();
+            configuration.Bind(jwtConfiguration.Section, jwtConfiguration);
+
             var secretKey = Environment.GetEnvironmentVariable("SECRET");
 
             services.AddAuthentication(opt =>
@@ -162,8 +165,8 @@ namespace Host_Service.Extensions
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
 
-                    ValidIssuer = jwtSettings["validIssuer"],
-                    ValidAudience = jwtSettings["validAudience"],
+                    ValidIssuer = jwtConfiguration.ValidIssuer,
+                    ValidAudience = jwtConfiguration.ValidAudience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
 
                 };
