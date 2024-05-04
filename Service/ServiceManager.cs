@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -25,7 +27,7 @@ namespace Service
         public IAuthenticationService AuthenticationService => _authenticationService.Value;
 
 
-        public ServiceManager(IRepositoryManager repository, ILoggerManager logger, IMapper mapper, UserManager<User> userManager,IConfiguration configuration)
+        public ServiceManager(IRepositoryManager repository, ILoggerManager logger, IMapper mapper, UserManager<User> userManager,IOptionsMonitor<JwtConfiguration> configuration)
         {
             _hostService = new Lazy<IHostService>(() => new HostService(repository, logger, mapper));
             _planService = new Lazy<IPlanService>(() => new PlanService(repository, logger, mapper));
