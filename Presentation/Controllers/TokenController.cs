@@ -16,7 +16,7 @@ namespace Presentation.Controllers
             _service = service;
         }
 
-        [HttpGet("refresh")]
+        [HttpPost("refresh")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
         {
