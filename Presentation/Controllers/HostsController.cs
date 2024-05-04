@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentation.ActionFilters;
+using Presentation.Extensions;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
@@ -29,13 +30,12 @@ namespace Presentation.Controllers
             if(!baseResult.Success)
                 return ProcessError(baseResult);
 
-            var hostes = ((ApiOkResponse<IEnumerable<HostDto>>)baseResult).Result;
+            var hostes = baseResult.GetResult<IEnumerable<HostDto>>(); 
             
             return Ok(hostes);
         }
 
         [HttpGet("{id:guid}", Name = "HostById")]
-        //[ResponseCache(Duration =60)]
         public async Task<IActionResult> GetHostAsync(Guid id)
         {
             var baseResult = await _services.HostService.GetHostAsync(id, false);
@@ -43,7 +43,7 @@ namespace Presentation.Controllers
             if (!baseResult.Success)
                 return ProcessError(baseResult);
 
-            var host = ((ApiOkResponse<HostDto>)baseResult).Result;
+            var host = baseResult.GetResult<HostDto>()  ;
 
             return Ok(host);
         }
